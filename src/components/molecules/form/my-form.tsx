@@ -10,8 +10,8 @@ export default function MyForm() {
     
         <TextField id="name" label="Name" variant="outlined" fullWidth />
 
-        <Button variant="contained">Annuler</Button>
-        <Button color="primary" variant="contained">Enregistrer</Button>
+        <Button sx={{backgroundColor:"white", border:"1px solid #007FFF", color:"#007FFF"}} variant="contained">Annuler</Button>
+        <Button sx={{backgroundColor:"#007FFF", border:"1px solid #007FFF", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)"}} variant="contained">Enregistrer</Button>
       </Box>
     </>
   );
