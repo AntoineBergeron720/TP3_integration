@@ -1,5 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import MyFooter from '@/components/molecules/myFooter/myFooter';
+import MyMenu from '@/components/molecules/myMenu/myMenu'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ backgroundColor: 'white' }}>
-        {children}
+          <MyMenu />
+          {children}
+          <MyFooter />
         </body>
     </html>
   )
