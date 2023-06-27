@@ -8,7 +8,6 @@ export default function MyButtonCancel() {
           backgroundColor: "white",
           border: "1px solid #007FFF",
           color: "#007FFF",
-          width: "30%",
         }}
         variant="contained"
       >

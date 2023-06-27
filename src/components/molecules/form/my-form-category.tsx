@@ -10,21 +10,49 @@ interface MyFormCategoryProps {
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
   return (
-    <>
-      <FormControl sx={{ display: "flex", justifyContent: "center"}}
-      >
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <FormControl sx={{ marginTop: "10px", width: "25%" }}>
         <TextField
           id="name"
           label="Name"
           variant="outlined"
           value={props.name}
-          
-          sx={{ width: "50%", height: "50px" }}
+          sx={{
+            height: "50px",
+            marginBottom: "20px",
+            marginTop: "25%",
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "4px",
+              "& fieldset": {
+                borderColor: "#007FFF", 
+              },
+            },
+          }}
         />
 
-        <MyButtonSave />
-        <MyButtonCancel />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "20px",
+          }}
+        >
+          <Box sx={{ marginLeft: "10" }}>
+            <MyButtonCancel />
+          </Box>
+          <Box sx={{ marginRight: "0px" }}>
+            <MyButtonSave />
+          </Box>
+        </Box>
       </FormControl>
-    </>
+    </Box>
   );
 }
