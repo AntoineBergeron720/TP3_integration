@@ -1,6 +1,6 @@
 import { Grid, TextField, Button } from "@mui/material";
-import MyButtonCancel from "../button/my-button-cancel";
-import MyButtonSave from "../button/my-button-save";
+import MyButtonCancel from "../../atoms/button/my-button-cancel";
+import MyButtonSave from "../../atoms/button/my-button-save";
 
 interface MyFormCategoryProps {
   name: string;
