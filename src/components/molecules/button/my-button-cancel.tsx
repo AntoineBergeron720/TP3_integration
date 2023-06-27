@@ -5,20 +5,7 @@ export default function MyButtonCancel() {
 
   return (
     <>
-      <Button
-        sx={{
-          backgroundColor: "white",
-          border: "1px solid #007FFF",
-          color: "#007FFF",
-          padding: isMobile ? "8px 16px" : "12px 24px",
-          fontSize: isMobile ? "14px" : "16px",
-        }}
-        variant="contained"
-        fullWidth
-      >
-        Annuler
-      </Button>
+      <Button variant="outlined">Annuler</Button>
     </>
   );
 }
-

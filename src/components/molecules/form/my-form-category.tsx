@@ -1,25 +1,15 @@
-import {
-  Box,
-  Grid,
-  FormControl,
-  TextField,
-  useMediaQuery,
-} from "@mui/material";
-import MyButtonSave from "../button/my-button-save";
+import { Grid, TextField, Button } from "@mui/material";
 import MyButtonCancel from "../button/my-button-cancel";
+import MyButtonSave from "../button/my-button-save";
 
 interface MyFormCategoryProps {
   name: string;
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
-  const isMobile = useMediaQuery("(max-width: 600px)");
-
   return (
-    <Grid
-      container
-    >
-      <Grid item sm={12}>
+    <Grid container rowGap={3} columnGap={2}>
+      <Grid item xs={12}>
         <TextField
           id="name"
           label="Name"
@@ -28,10 +18,16 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
           fullWidth
         />
       </Grid>
-      <Grid item sm={6}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 2,
+        }}
+      >
         <MyButtonCancel />
-      </Grid>
-      <Grid item sm={6}>
         <MyButtonSave />
       </Grid>
     </Grid>
