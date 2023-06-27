@@ -1,4 +1,4 @@
-import MyProductArray from "@/components/molecules/myProductArray/myProductArray";
+import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -20,7 +20,7 @@ export default function CategoryPage() {
 
   return (
     <Box>
-      <MyProductArray myProductArray={[]} />
+      <MyProductTable myProductArray={[]} />
     </Box>
   );
 }
