@@ -12,7 +12,7 @@ export default function MyProductTable(props: MyProductTableProps) {
     { field: 'category', headerName: 'Category', width: 130},
     { field: 'price', headerName: 'Price', width: 90 }
   ];
-  const rows = props.myProductArray;
+  
   return (
     <TableContainer>
       <Table>
