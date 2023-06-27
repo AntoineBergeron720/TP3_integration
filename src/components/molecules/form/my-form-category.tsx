@@ -16,7 +16,6 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
       }}
     >
       <FormControl sx={{ marginTop: "10px", width: "25%" }}>
