@@ -20,7 +20,7 @@ interface MenuItem {
 const pages: MenuItem[] = [
   { label: 'ACCUEIL', route: '/' },
   { label: 'CATEGORIES', route: '/categories' },
-  { label: 'PRODUITS', route: 'products' },
+  { label: 'PRODUITS', route: '/products' },
 ];
 
 export default function MyMenu() {
