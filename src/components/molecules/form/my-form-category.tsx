@@ -1,6 +1,10 @@
-"use client";
-
-import { Box, FormControl, TextField } from "@mui/material";
+import {
+  Box,
+  Grid,
+  FormControl,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import MyButtonSave from "../button/my-button-save";
 import MyButtonCancel from "../button/my-button-cancel";
 
@@ -9,49 +13,27 @@ interface MyFormCategoryProps {
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+    <Grid
+      container
     >
-      <FormControl sx={{ marginTop: "10px", width: "25%" }}>
+      <Grid item sm={12}>
         <TextField
           id="name"
           label="Name"
           variant="outlined"
           value={props.name}
-          sx={{
-            height: "50px",
-            marginBottom: "20px",
-            marginTop: "25%",
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "4px",
-              "& fieldset": {
-                borderColor: "#007FFF", 
-              },
-            },
-          }}
+          fullWidth
         />
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "20px",
-          }}
-        >
-          <Box sx={{ marginLeft: "10" }}>
-            <MyButtonCancel />
-          </Box>
-          <Box sx={{ marginRight: "0px" }}>
-            <MyButtonSave />
-          </Box>
-        </Box>
-      </FormControl>
-    </Box>
+      </Grid>
+      <Grid item sm={6}>
+        <MyButtonCancel />
+      </Grid>
+      <Grid item sm={6}>
+        <MyButtonSave />
+      </Grid>
+    </Grid>
   );
 }
