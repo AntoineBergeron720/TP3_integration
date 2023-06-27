@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ backgroundColor: 'white' }}>
+      <body style={{ background: 'white' }}>
           <MyMenu />
           {children}
           <MyFooter />

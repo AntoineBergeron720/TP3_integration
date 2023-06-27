@@ -5,12 +5,11 @@ import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyFormCategory from "@/components/molecules/form/my-form-category";
 import { Box, Container } from "@mui/material";
 
-export default function AddCategory() {
+export default function EditCategory() {
   return (
     <Container
       sx={{
         display: "flex",
-        backgroundColor: "white",
         flexDirection: "column",
         minWidth: 300,
         mt: 2,

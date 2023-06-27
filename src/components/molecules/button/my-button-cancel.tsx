@@ -5,7 +5,9 @@ export default function MyButtonCancel() {
 
   return (
     <>
-      <Button variant="outlined">Annuler</Button>
+      <Button variant="outlined" sx={{ border: "2px solid #007FFF" }}>
+        Annuler
+      </Button>
     </>
   );
 }

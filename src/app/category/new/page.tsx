@@ -10,7 +10,6 @@ export default function AddCategory() {
     <Container
       sx={{
         display: "flex",
-        backgroundColor: "white",
         flexDirection: "column",
         minWidth: 300,
         mt: 2,

@@ -16,6 +16,14 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
           variant="outlined"
           value={props.name}
           fullWidth
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                border: "2px solid #007FFF", 
+                borderRadius: "2px", 
+              },
+            },
+          }}
         />
       </Grid>
       <Grid
