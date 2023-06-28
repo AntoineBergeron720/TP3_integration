@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { useRouter } from "next/navigation";
 
 interface MyProductTableProps {
   myProductArray: any; // Change to the api category type
@@ -20,31 +21,32 @@ interface MyProductTableProps {
 export default function MyProductTable(props: MyProductTableProps) {
   const columns = [
     { field: "name", headerName: "Produit" },
-    { field: "category", headerName: "Categorie" },
+    { field: "category", headerName: "Catégorie" },
     { field: "price", headerName: "Prix ($)" },
   ];
+
+  const router = useRouter();
 
   return (
     <TableContainer>
       <Table>
         <TableHead>
-          <TableRow sx={{ display: "flex", alignItems: "flex-start", alignSelf: "stretch" }}>
+          <TableRow>
             {columns.map((column) => (
-              <TableCell key={column.field} sx={{ display: "flex", padding: "0px 10px", alignItems: "center", flex: "1 0 0", alignSelf: "stretch" }}>
-                <Typography sx={{ fontSize: "34px", color: "primary.main" }}>
+              <TableCell key={column.field} align="left">
+                <Typography sx={{ fontSize: "1.75em", color: "primary.main" }}>
                   {column.headerName}
                 </Typography>
               </TableCell>
             ))}
-            {/* <TableCell sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", flex: "1 0 0", alignSelf: "stretch" }}> */}
-            <TableCell sx={{ display: "flex", padding: "8px 22px", flexDirection: "column", justifyContent: "center", alignItems: "center", flex: "1 0 0", alignSelf: "stretch" }}>
+            <TableCell sx={{ paddingX: "0px" }} align="center">
               <Button
                 variant="contained"
                 color="primary"
-                href="/categories/new"
+                onClick={() => router.push("/product/new")}
               >
-                <Typography sx={{ display: "flex", alignContent: "center" }}>
-                  Ajouter un produit{" "}
+                <Typography sx={{ display: "flex", alignContent: "center", fontSize:"1em" }}>
+                  Ajouter un produit
                   <AddBoxIcon
                     sx={{
                       borderRadius: "5px",
@@ -58,24 +60,23 @@ export default function MyProductTable(props: MyProductTableProps) {
         </TableHead>
         <TableBody>
           {props.myProductArray
-            ? props.myProductArray.map((product) => (
-                <TableRow key={product.id} sx={{ display: "flex", alignItems: "center", alignSelf: "stretch" }}>
+          /* change to the api category type */
+            ? props.myProductArray.map((product: any) => (
+                <TableRow key={product.id}>
                   {columns.map((column) => (
-                    <TableCell key={column.field}>
-                      {/* <Typography sx={{ fontSize: "24px", lineHeight: "30px", letter-spacing: 0.5px; }}> */}
-                      <Typography sx={{ fontSize: "24px"}}>
-                        {product[column.field]}
+                    <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product.id)} sx={{ cursor: "pointer" }}>
+                      <Typography sx={{ fontSize: "1.25em"}}>
+                        {product[column.field] / 100}
                       </Typography>
                     </TableCell>
                   ))}
-                  <TableCell sx={{ display: "flex", justifyContent: "center" }}>
-                    {/* <Button
-                      variant="contained"
-                      color="primary"
-                      action={null} // to change for the function that gonna delete
-                    > */}
+                  <TableCell align="center">
+                    <Button
+                      sx={{ color: "black" }}
+                      action={null} // to change for the function that gonna delete the product
+                    >
                       <DeleteForeverIcon />
-                    {/* </Button> */}
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))

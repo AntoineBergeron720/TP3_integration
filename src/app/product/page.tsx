@@ -1,26 +1,24 @@
+"use client";
+
 import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
-interface Category {
+interface Product {
   name: string;
+  category: string;
+  price: number;
 }
 
 export default function CategoryPage() {
-  const [myProductArray, setMyProductArray] = useState<Category[]>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("https://api-tp3-integration.onrender.com/categories");
-      const data = await response.json();
-      setMyProductArray(data);
-    };
-    fetchData();
-  }, [myProductArray]);
+  const [myProductArray, setMyProductArray] = useState<Product[]>();
 
   return (
-    <Box>
-      <MyProductTable myProductArray={[]} />
+    <Box sx={{ padding: "5%" }}>
+      { /* page title component */ }
+
+      { /* change "null" to the api products */}
+      <MyProductTable myProductArray={null}/>
     </Box>
   );
 }
