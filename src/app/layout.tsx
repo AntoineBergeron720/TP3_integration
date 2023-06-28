@@ -17,11 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ background: "white" }}>
-        <MyMenu />
-        {children}
-        <MyFooter />
-      </body>
+      <body style={{ background: 'white' }}>
+          <MyMenu />
+          {children}
+          <MyFooter />
+        </body>
     </html>
   );
 }
