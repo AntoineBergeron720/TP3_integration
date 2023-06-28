@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-export default function CategoryPage() {
+export default function ProductPage() {
   return (
     <Box>
       
