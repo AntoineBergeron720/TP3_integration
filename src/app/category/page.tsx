@@ -1,5 +1,6 @@
-'use client';
+"use client";
 
+import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
 import { Box } from "@mui/material";
 import { getData } from "../common/jeuxApi";
 import { Category } from "@mui/icons-material";
@@ -12,9 +13,8 @@ export default async function CategoryPage() {
   const data = await getData('https://api-tp3-integration.onrender.com/categories')
   const total = data.categories.length;
   return (
-
-    <ul>
-        {data.categories.map((category: Categories) => (<li>{category.name}</li>))}
-    </ul>
+    <Box>
+      
+    </Box>
   );
 }
