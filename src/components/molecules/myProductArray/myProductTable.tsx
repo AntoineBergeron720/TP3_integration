@@ -13,14 +13,16 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
+import { Products } from "@/types/modules";
 
 interface MyProductTableProps {
-  myProductArray: any; // Change to the api category type
+  myProductArray: Products[]; // Change to the api category type
 }
 
 export default function MyProductTable(props: MyProductTableProps) {
   const columns = [
-    { field: "name", headerName: "Produit" },
+    { field: "title", headerName: "Produit" },
+    { field: "description", headerName: "Description"},
     { field: "category", headerName: "Catégorie" },
     { field: "price", headerName: "Prix ($)" },
   ];
@@ -59,14 +61,13 @@ export default function MyProductTable(props: MyProductTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.myProductArray
-          /* change to the api category type */
-            ? props.myProductArray.map((product: any) => (
-                <TableRow key={product.id}>
+          {props.myProductArray.length > 0
+            ? props.myProductArray.map((product: Products) => (
+                <TableRow key={product._id}>
                   {columns.map((column) => (
-                    <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product.id)} sx={{ cursor: "pointer" }}>
+                    <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>
                       <Typography sx={{ fontSize: "1.25em"}}>
-                        {product[column.field] / 100}
+                        {/*product.hasOwnProperty(column.field) ? product[column.field] : null*/}
                       </Typography>
                     </TableCell>
                   ))}
@@ -80,7 +81,14 @@ export default function MyProductTable(props: MyProductTableProps) {
                   </TableCell>
                 </TableRow>
               ))
-            : null}
+            : <TableRow>
+                <TableCell colSpan={5} align="center">
+                  <Typography sx={{ fontSize: "1.5em" }}>
+                    Aucun produit
+                  </Typography>
+                </TableCell>
+              </TableRow>
+          }
         </TableBody>
       </Table>
     </TableContainer>
