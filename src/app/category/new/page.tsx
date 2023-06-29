@@ -21,7 +21,7 @@ export default function AddCategory() {
         <MyPageTitle title="Ajouter une catégorie" />
       </Box>
       <Box>
-        <MyFormCategory name="test" />
+        <MyFormCategory name=" " />
       </Box>
     </Container>
   );
