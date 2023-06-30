@@ -76,7 +76,7 @@ export default function MyProductTable(props: MyProductTableProps) {
                   {columns.map((column) => (
                     <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>
                       <Typography sx={{ fontSize: "1.25em" }}>
-                        {product.hasOwnProperty(column.field) ? product[column.field] : null}
+                        {product.hasOwnProperty(column.field) ? column.field == "price" ? product[column.field] / 100 : product[column.field] : null}
                       </Typography>
                     </TableCell>
                   ))}
