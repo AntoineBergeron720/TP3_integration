@@ -6,29 +6,11 @@ import { Categories } from "@/types/modules";
 import { Products } from "@/types/modules";
 import { getData } from "../common/jeuxApi";
 import { useEffect, useState } from "react";
+import MyPageTitle from "@/components/molecules/title/my-page-title";
 
-export default async function ProductPage() {
+export default function ProductPage() {
   const [products, setProducts] = useState<Products[]>([]);
   const [categories, setCategories] = useState<Categories[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  /*const productsData = await getData(
-    "https://api-tp3-integration.onrender.com/products"
-  );
-  const categoriesData = await getData(
-    "https://api-tp3-integration.onrender.com/categories"
-  );
-  for (let i = 0; i < productsData.products.length; i++) {
-    for (let j = 0; j < categoriesData.categories.length; j++) {
-      if (
-        productsData.products[i].categoryId == categoriesData.categories[j]._id
-      ) {
-        productsData.products[i].categoryId = categoriesData.categories[j].name;
-      }
-    }
-  }*/
-
-  // With this loop, we can now display the name of the category instead of the id
 
   useEffect(() => {
     if (products.length > 0) return;
@@ -42,8 +24,7 @@ export default async function ProductPage() {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => setIsLoading(false));
+      });
   }
 
   function getCategories() {
@@ -59,14 +40,9 @@ export default async function ProductPage() {
 
   return (
     <Box sx={{ padding: "5%" }}>
-      {/* page title component */}
+      <MyPageTitle title="Liste des produits" />
 
-      {/* {products.length > 0 ? (
-        <MyProductTable myProductArray={products} />
-      ) : (
-        <MyProductTable myProductArray={[]} />
-      )} */}
-      <MyProductTable myProductArray={products} />
+      <MyProductTable myProductArray={products} categories={categories} />
     </Box>
   );
 }

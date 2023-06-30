@@ -13,21 +13,30 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
-import { Products } from "@/types/modules";
+import { Categories, Products } from "@/types/modules";
 
 interface MyProductTableProps {
-  myProductArray: Products[]; // Change to the api category type
+  myProductArray: Products[];
+  categories: Categories[];
 }
 
 export default function MyProductTable(props: MyProductTableProps) {
   const columns = [
     { field: "title", headerName: "Produit" },
     { field: "description", headerName: "Description"},
-    { field: "category", headerName: "Catégorie" },
+    { field: "categoryId", headerName: "Catégorie" },
     { field: "price", headerName: "Prix ($)" },
   ];
 
   const router = useRouter();
+
+  props.myProductArray.forEach(product => {
+    props.categories.forEach(category => {
+      if (product.categoryId == category._id) {
+        product.categoryId = category.name;
+      }
+    });
+  });
 
   return (
     <TableContainer>
@@ -66,15 +75,15 @@ export default function MyProductTable(props: MyProductTableProps) {
                 <TableRow key={product._id}>
                   {columns.map((column) => (
                     <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>
-                      <Typography sx={{ fontSize: "1.25em"}}>
-                        {/*product.hasOwnProperty(column.field) ? product[column.field] : null*/}
+                      <Typography sx={{ fontSize: "1.25em" }}>
+                        {product.hasOwnProperty(column.field) ? product[column.field] : null}
                       </Typography>
                     </TableCell>
                   ))}
                   <TableCell align="center">
                     <Button
                       sx={{ color: "black" }}
-                      action={null} // to change for the function that gonna delete the product
+                      action={null} // change to the function that gonna delete the product
                     >
                       <DeleteForeverIcon />
                     </Button>
@@ -83,7 +92,7 @@ export default function MyProductTable(props: MyProductTableProps) {
               ))
             : <TableRow>
                 <TableCell colSpan={5} align="center">
-                  <Typography sx={{ fontSize: "1.5em" }}>
+                  <Typography sx={{ fontSize: "1.5em", color: "black" }}>
                     Aucun produit
                   </Typography>
                 </TableCell>
