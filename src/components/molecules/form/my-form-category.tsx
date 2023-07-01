@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button, Typography } from "@mui/material";
 import MyButtonCancel from "../../atoms/button/my-button-cancel";
 import MyButtonSave from "../../atoms/button/my-button-save";
-import { Categories } from "@/types/modules";
+import { Category } from "@/types/modules";
 import { getData } from "@/app/common/jeuxApi";
 
 interface MyFormCategoryProps {
-  category: Categories;
+  categoryName: string;
+  categoryId: string;
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
- 
 
   return (
     <Grid container rowGap={3} columnGap={2}>
@@ -21,7 +21,7 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
           id="name"
           label="Name"
           variant="outlined"
-          value={props.category.name}
+          value={props.categoryName}
           //onChange={(e) => setCategoryName(e.target.value)}
           fullWidth
           sx={{

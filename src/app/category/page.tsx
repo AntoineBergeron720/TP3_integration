@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import { getData } from "../common/jeuxApi";
 import { Category } from "@mui/icons-material";
 import { useState } from "react";
-import { Categories } from "@/types/modules";
+import { Category } from "@/types/modules";
 
 
 

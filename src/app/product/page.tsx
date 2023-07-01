@@ -2,8 +2,8 @@
 
 import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
 import { Box } from "@mui/material";
-import { Categories } from "@/types/modules";
-import { Products } from "@/types/modules";
+import { Category } from "@/types/modules";
+import { Product } from "@/types/modules";
 import { getData } from "../common/jeuxApi";
 
 export default async function ProductPage() {

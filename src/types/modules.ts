@@ -1,9 +1,9 @@
-export interface Categories{
+export interface Category{
     _id: string;
     name: string;
 }
 
-export interface Products{
+export interface Product{
     _id: string;
     userId: string;
     isSold: boolean;

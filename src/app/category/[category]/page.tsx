@@ -5,10 +5,10 @@ import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyFormCategory from "@/components/molecules/form/my-form-category";
 import { Box, Container, Typography } from "@mui/material";
 import { getData } from "@/app/common/jeuxApi";
-import { Categories } from "@/types/modules";
+import { Category } from "@/types/modules";
 
 export default function EditCategory() {
-  const [categoryData, setCategoryData] = useState<Categories>();
+  const [categoryData, setCategoryData] = useState<Category>();
 
   useEffect(() => {
     if (!categoryData) {
@@ -20,7 +20,8 @@ export default function EditCategory() {
     getData(
       "https://api-tp3-integration.onrender.com/categories/637bc5cc85b7540a4240605c"
     )
-      .then((category) => {
+      .then((category: Category) => {
+        console.log(category);
         setCategoryData(category);
       })
       .catch((err) => {
@@ -44,7 +45,9 @@ export default function EditCategory() {
       </Box>
       <Box>
         {categoryData ? (
-          <MyFormCategory category={categoryData} />
+          <Box>
+            <MyFormCategory categoryName={categoryData.category.name} categoryId={categoryData.category._id} />
+          </Box>
         ) : (
           <Typography> No category found.</Typography>
         )}
