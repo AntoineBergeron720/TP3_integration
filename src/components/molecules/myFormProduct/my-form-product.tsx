@@ -68,8 +68,16 @@ export default function MyFormProduct(props: MyFormProductProps) {
             id="categoryId"
             label="categoryId"
             variant="outlined"
-            
-            
+            value={props.categoryId}
+            fullWidth
+            sx={{ "& .MuiOutlinedInput-root": { borderRadius: "2px" } }}
+          >
+            {props.categoriesId.map((categoryId) => (
+              <option key={categoryId} value={categoryId}>
+                {categoryId}
+              </option>
+            ))}
+          </Select>        
       </Grid>
       <Grid
         item
@@ -84,5 +92,6 @@ export default function MyFormProduct(props: MyFormProductProps) {
         <MyButtonSave />
       </Grid>
     </Grid>
+  </Grid>
   );
 }
