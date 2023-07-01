@@ -1,12 +1,19 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Grid, TextField, Button } from "@mui/material";
 import MyButtonCancel from "../../atoms/button/my-button-cancel";
 import MyButtonSave from "../../atoms/button/my-button-save";
+import { Categories } from "@/types/modules";
+import { getData } from "@/app/common/jeuxApi";
 
 interface MyFormCategoryProps {
-  name: string;
+  category: Categories;
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
+ 
+
   return (
     <Grid container rowGap={3} columnGap={2}>
       <Grid item xs={12}>
@@ -14,13 +21,14 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
           id="name"
           label="Name"
           variant="outlined"
-          value={props.name}
+          value={props.category.name}
+          //onChange={(e) => setCategoryName(e.target.value)}
           fullWidth
           sx={{
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                border: "2px solid #007FFF", 
-                borderRadius: "2px", 
+                border: "2px solid #007FFF",
+                borderRadius: "2px",
               },
             },
           }}
