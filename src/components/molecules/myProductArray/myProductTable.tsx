@@ -13,19 +13,30 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
+import { Categories, Products } from "@/types/modules";
 
 interface MyProductTableProps {
-  myProductArray: any; // Change to the api category type
+  myProductArray: Products[];
+  categories: Categories[];
 }
 
 export default function MyProductTable(props: MyProductTableProps) {
   const columns = [
-    { field: "name", headerName: "Produit" },
-    { field: "category", headerName: "Catégorie" },
+    { field: "title", headerName: "Produit" },
+    { field: "description", headerName: "Description"},
+    { field: "categoryId", headerName: "Catégorie" },
     { field: "price", headerName: "Prix ($)" },
   ];
 
   const router = useRouter();
+
+  props.myProductArray.forEach(product => {
+    props.categories.forEach(category => {
+      if (product.categoryId == category._id) {
+        product.categoryId = category.name;
+      }
+    });
+  });
 
   return (
     <TableContainer>
@@ -59,28 +70,34 @@ export default function MyProductTable(props: MyProductTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.myProductArray
-          /* change to the api category type */
-            ? props.myProductArray.map((product: any) => (
-                <TableRow key={product.id}>
+          {props.myProductArray.length > 0
+            ? props.myProductArray.map((product: Products) => (
+                <TableRow key={product._id}>
                   {columns.map((column) => (
-                    <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product.id)} sx={{ cursor: "pointer" }}>
-                      <Typography sx={{ fontSize: "1.25em"}}>
-                        {product[column.field] / 100}
+                    <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>
+                      <Typography sx={{ fontSize: "1.25em" }}>
+                        {product.hasOwnProperty(column.field) ? column.field == "price" ? product[column.field] / 100 : product[column.field] : null}
                       </Typography>
                     </TableCell>
                   ))}
                   <TableCell align="center">
                     <Button
                       sx={{ color: "black" }}
-                      action={null} // to change for the function that gonna delete the product
+                      action={null} // change to the function that gonna delete the product
                     >
                       <DeleteForeverIcon />
                     </Button>
                   </TableCell>
                 </TableRow>
               ))
-            : null}
+            : <TableRow>
+                <TableCell colSpan={5} align="center">
+                  <Typography sx={{ fontSize: "1.5em", color: "black" }}>
+                    Aucun produit
+                  </Typography>
+                </TableCell>
+              </TableRow>
+          }
         </TableBody>
       </Table>
     </TableContainer>
