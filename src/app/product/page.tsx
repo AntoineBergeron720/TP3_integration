@@ -42,7 +42,7 @@ export default function ProductPage() {
     <Box sx={{ padding: "5%" }}>
       <MyPageTitle title="Liste des produits" />
 
-      <MyProductTable myProductArray={products} categories={categories} />
+      <MyProductTable products={products} categories={categories} />
     </Box>
   );
 }
