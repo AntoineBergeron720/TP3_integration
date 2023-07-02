@@ -2,7 +2,7 @@
 
 import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyFormCategory from "@/components/molecules/form/my-form-category";
+import MyFormCategory from "@/components/molecules/my-form-category/my-form-category";
 import { Box, Container } from "@mui/material";
 
 export default function AddCategory() {

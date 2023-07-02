@@ -3,9 +3,7 @@
 import React, { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyFormCategory from "@/components/molecules/form/my-form-category";
-import { Box, Container, Typography } from "@mui/material";
-import { getData } from "@/app/common/jeuxApi";
-import { Category } from "@/types/modules";
+import { Box, Container } from "@mui/material";
 
 export default function EditCategory() {
   const [categoryData, setCategoryData] = useState<Category>();
