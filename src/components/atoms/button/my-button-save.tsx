@@ -1,10 +1,14 @@
 import { Button, useMediaQuery } from "@mui/material";
 
-export default function MyButtonSave() {
+interface MyButtonSaveProps {
+  onClick: () => void;
+}
+
+export default function MyButtonSave({ onClick }: MyButtonSaveProps) {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   return (
-    <Button variant="contained" sx={{ border: "2px solid #007FFF" }}>
+    <Button variant="contained" sx={{ border: "2px solid #007FFF" }} onClick={onClick}>
       Enregistrer
     </Button>
   );

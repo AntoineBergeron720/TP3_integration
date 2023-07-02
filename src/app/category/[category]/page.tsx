@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyFormCategory from "@/components/molecules/form/my-form-category";
-import { Box, Container } from "@mui/material";
+import MyFormCategory from "@/components/molecules/my-form-category/my-form-category";
+import { Box, Container, Typography } from "@mui/material";
+import { Category } from "@/types/modules";
+import { getData } from "@/app/common/jeuxApi";
 
 export default function EditCategory() {
   const [categoryData, setCategoryData] = useState<Category>();
@@ -22,7 +24,7 @@ export default function EditCategory() {
         console.log(category);
         setCategoryData(category);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log(err);
       });
   }

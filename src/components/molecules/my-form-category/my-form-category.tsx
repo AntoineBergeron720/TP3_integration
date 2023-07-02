@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Grid, TextField, Button, Typography } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import MyButtonCancel from "../../atoms/button/my-button-cancel";
 import MyButtonSave from "../../atoms/button/my-button-save";
-import { Category } from "@/types/modules";
-import { getData } from "@/app/common/jeuxApi";
+import { saveCategory } from "@/app/category/new/page";
+
 
 interface MyFormCategoryProps {
   categoryName: string;
@@ -13,6 +12,24 @@ interface MyFormCategoryProps {
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
+  const handleSave = async () => {
+    try {
+      const categoryData = {
+        name: props.categoryName,
+        id: props.categoryId,
+      };
+
+      const url = "https://api-tp3-integration.onrender.com/categories/"; 
+
+      const response = await saveCategory(url, categoryData);
+
+      console.log("Category saved successfully:", response);
+
+      // Optionally, perform any additional actions after successful save
+    } catch (error) {
+      console.error("Failed to save category:", error);
+    }
+  };
 
   return (
     <Grid container rowGap={3} columnGap={2}>
@@ -22,7 +39,6 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
           label="Name"
           variant="outlined"
           value={props.categoryName}
-          //onChange={(e) => setCategoryName(e.target.value)}
           fullWidth
           sx={{
             "& .MuiOutlinedInput-root": {
@@ -44,8 +60,10 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
         }}
       >
         <MyButtonCancel />
-        <MyButtonSave />
+        <MyButtonSave onClick={handleSave} />
       </Grid>
     </Grid>
   );
 }
+
+
