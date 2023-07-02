@@ -3,32 +3,24 @@
 import { Grid, TextField } from "@mui/material";
 import MyButtonCancel from "../../atoms/button/my-button-cancel";
 import MyButtonSave from "../../atoms/button/my-button-save";
-import { saveCategory } from "@/app/category/new/page";
+import { postData } from "@/app/common/jeuxApi";
 
 
 interface MyFormCategoryProps {
-  categoryName: string;
-  categoryId: string;
+  categoryName: string | undefined;
+  categoryId: string | undefined;
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
-  const handleSave = async () => {
-    try {
-      const categoryData = {
-        name: props.categoryName,
-        id: props.categoryId,
-      };
-
-      const url = "https://api-tp3-integration.onrender.com/categories/"; 
-
-      const response = await saveCategory(url, categoryData);
-
-      console.log("Category saved successfully:", response);
-
-      // Optionally, perform any additional actions after successful save
-    } catch (error) {
-      console.error("Failed to save category:", error);
-    }
+  const handleSave = () => {
+    postData("category", {
+      name: props.categoryName,
+    }).then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
   return (
