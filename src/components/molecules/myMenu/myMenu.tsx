@@ -140,6 +140,7 @@ export default function MyMenu() {
                   display: 'block',
                   borderBottom: '3px solid transparent',
                   '&:active': { borderBottomColor: 'white' },
+                  '&:hover' : { borderBottomColor: 'white'}
                 }}
               >
                 {page.label}
@@ -147,7 +148,7 @@ export default function MyMenu() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Box>EN|FR</Box>
+            <Box sx={{fontFamily: 'roboto'}}>EN | FR</Box>
           </Box>
         </Toolbar>
       </Container>
