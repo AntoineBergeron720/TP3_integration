@@ -39,6 +39,10 @@ export default function MyMenu() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const changeLanguage = (language: string) => {
+    window.location.href = `/${language}`
+  };
+
 
   function handleOpenPage(goToRoute: string) {
     return router.push(goToRoute);
@@ -147,10 +151,19 @@ export default function MyMenu() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Box>EN|FR</Box>
+          <Button  variant="contained" color="primary" aria-label="change language"
+              onClick={() => {
+                changeLanguage('en');
+              }}>En</Button>
+              <Button  variant="contained" color="primary" aria-label="change language"
+              onClick={() => {
+                changeLanguage('fr');
+              }}>Fr</Button>   
+
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+

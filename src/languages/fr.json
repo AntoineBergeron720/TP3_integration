@@ -1,0 +1,12 @@
+{
+      "accueil": {
+        "page-title": "Ceci est ma page d'accueil"
+      },
+      "categories": {
+        "page-title": "Voici mes catégories"
+      },
+      "products": {
+        "page-title": "Voici mes produits"
+      }
+  }
+  
