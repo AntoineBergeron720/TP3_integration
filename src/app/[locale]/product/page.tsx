@@ -4,7 +4,7 @@ import MyProductTable from "@/components/molecules/myProductArray/myProductTable
 import { Box } from "@mui/material";
 import { Categories } from "@/types/modules";
 import { Products } from "@/types/modules";
-import { getData } from "../common/jeuxApi";
+import { getData } from "../../common/jeuxApi";
 import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 

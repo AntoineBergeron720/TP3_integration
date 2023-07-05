@@ -1,10 +1,10 @@
-import './globals.css'
+//import './globals.css'
 import { Inter } from 'next/font/google'
 import MyFooter from '@/components/molecules/myFooter/myFooter';
 import MyMenu from '@/components/molecules/myMenu/myMenu'
 //import ApplicationProvider from "@/context/application.provider";
 import { NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
