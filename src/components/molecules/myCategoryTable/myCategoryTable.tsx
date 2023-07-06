@@ -5,6 +5,7 @@ import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRo
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface MyCategoryTableProps {
   categories: Categories[];
@@ -14,6 +15,22 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
   const columns = [
     { field: "name", headerName: "Nom" }
   ];
+
+  useEffect(() => {
+    if (props.categories.length == 0) {
+      getCategories();
+    }
+  }, [props.categories]);
+
+  function getCategories() {
+    getData("https://api-tp3-integration.onrender.com/categories")
+      .then((data) => {
+        setCategories(data.categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   const router = useRouter();
 

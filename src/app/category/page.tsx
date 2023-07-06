@@ -9,9 +9,8 @@ import MyCategoryTable from "@/components/molecules/myCategoryTable/myCategoryTa
 
 export default async function CategoryPage() {
   const [categories, setCategories] = useState<Categories[]>([]);
-  //const data = await getData('https://api-tp3-integration.onrender.com/categories');
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (categories.length == 0) {
       getCategories();
     }
@@ -25,13 +24,13 @@ export default async function CategoryPage() {
       .catch((err) => {
         console.log(err);
       });
-  }
+  }*/
 
   return (
     <Container>
       <MyPageTitle title="Catégories" />
 
-      {categories.length > 0 ? (
+      {/* {categories.length > 0 ? (
         <Box>
           {categories.map((category: Categories) => (
             <Typography key={category._id} sx={{ color: "black" }}>
@@ -41,8 +40,8 @@ export default async function CategoryPage() {
         </Box>
       ) : (
         <Typography sx={{ color: "black" }}>Aucune catégorie</Typography>
-      )}
-      {/* <MyCategoryTable categories={categories} /> */}
+      )} */}
+      <MyCategoryTable categories={categories} />
     </Container>
   );
 }
