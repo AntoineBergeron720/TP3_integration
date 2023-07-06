@@ -46,7 +46,7 @@ export default function EditCategory() {
       <Box>
         {categoryData ? (
           <Box>
-            <MyFormCategory categoryName={categoryData.category.name} categoryId={categoryData.category._id} />
+            <MyFormCategory name={categoryData.category.name} categoryId={categoryData.category._id} />
           </Box>
         ) : (
           <Typography> No category found.</Typography>

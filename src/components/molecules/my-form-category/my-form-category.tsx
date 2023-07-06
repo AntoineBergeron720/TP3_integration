@@ -3,40 +3,28 @@ import { Box, Grid, TextField } from '@mui/material';
 import MyButtonCancel from '../../atoms/button/my-button-cancel';
 import { useForm } from 'react-hook-form';
 import MyButtonSave from '@/components/atoms/button/my-button-save';
+import { postData } from '@/app/common/jeuxApi';
 
 interface MyFormCategoryProps {
-  categoryName: string | undefined;
+  name: string | undefined;
   categoryId: string | undefined;
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
-  const { handleSubmit, register, formState: { errors } } = useForm();
+  const { handleSubmit, register, formState: { errors } } = useForm<MyFormCategoryProps>();
   const [message, setMessage] = useState('');
   const categoryNameRef = useRef(null);
 
-  const onSubmit = async (data: any) => {
-    try {
-      // Make API request to create a new category
-      const response = await fetch('"https://api-tp3-integration.onrender.com/categories/"', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        // Category created successfully
-        setMessage('Your category was added successfully');
-      } else {
-        // Handle API error
-        setMessage('Failed to create category');
-      }
-    } catch (error) {
-      // Handle network error
-      setMessage('An error occurred');
-      console.error('An error occurred', error);
-    }
+  function onSubmit(data: MyFormCategoryProps) {
+    postData('https://api-tp3-integration.onrender.com/categories/', data)
+    .then((result) => {
+      console.log(result);
+      setMessage('Category added');
+    })
+    .catch((error) => {
+      console.error(error);
+      setMessage('Error');
+    });
   };
 
   return (
@@ -46,13 +34,14 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
         <Grid container rowGap={3} columnGap={2}>
           <Grid item xs={12}>
           <TextField
-              name="categoryName"
+              id='name'
               label="Category Name"
               variant="outlined"
               fullWidth
+              {...register("name")}
               inputProps={{ ref: categoryNameRef }}
-              error={errors.categoryName ? true : false}
-              helperText={errors.categoryName && 'This field is required'}
+              error={errors.name ? true : false}
+              helperText={errors.name && 'This field is required'}
             />
           </Grid>
           <Grid
