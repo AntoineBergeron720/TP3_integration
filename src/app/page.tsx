@@ -22,10 +22,10 @@ export default function Home() {
         }}>
 
           Notre mandat est de créer une interface d’administration simple en utilisant les composantes de Material UI et Next.js. Ce
-          panneau d’administration est lié a l’API conçue dans le cadre du cour “Programmation 1” et a été créé afin qu’il soit
-          simple et facile à employer. Notez ci-haut les membres de l’équipe qui ont permis la réalisation de ce projet ainsi que
+          panneau d’administration est lié a l’API conçue dans le cadre du cours “Programmation 1” et a été créé afin qu’il soit
+          simple et facile à employer. Notez ci-bas les membres de l’équipe qui ont permis la réalisation de ce projet ainsi que
           leur rôle dans l’équipe et leur compte Github. Outre la présente page d’accueil, vous trouverez sur ce site un module
-          qui traite des différents produits offerts par une entreprise de jouet, ainsi que leurs catégories.</Typography>
+          qui traite des différents produits offerts par une entreprise de jouets, ainsi que leurs catégories.</Typography>
         <BasicTable />
 
       </Section>

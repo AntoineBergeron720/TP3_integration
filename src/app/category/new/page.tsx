@@ -4,8 +4,11 @@ import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyFormCategory from "@/components/molecules/my-form-category/my-form-category";
 import { Box, Container } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 export default function AddCategory() {
+//const { handleSave, handleSubmit, control } = useForm();
+
   return (
     <Container
       sx={{
