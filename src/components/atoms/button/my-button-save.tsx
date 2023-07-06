@@ -1,10 +1,8 @@
 import { Button, useMediaQuery } from "@mui/material";
 
-//interface MyButtonSaveProps {
- // onClick: () => void;
-//}
 
-export default function MyButtonSave({ onClick }: MyButtonSaveProps) {
+
+export default function MyButtonSave() {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   return (
