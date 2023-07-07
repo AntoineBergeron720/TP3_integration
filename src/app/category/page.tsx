@@ -7,13 +7,11 @@ import { Categories } from "@/types/modules";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyCategoryTable from "@/components/molecules/myCategoryTable/myCategoryTable";
 
-export default async function CategoryPage() {
+export default function CategoryPage() {
   const [categories, setCategories] = useState<Categories[]>([]);
 
-  /*useEffect(() => {
-    if (categories.length == 0) {
-      getCategories();
-    }
+  useEffect(() => {
+    if(categories.length === 0) getCategories();
   }, [categories]);
 
   function getCategories() {
@@ -24,23 +22,11 @@ export default async function CategoryPage() {
       .catch((err) => {
         console.log(err);
       });
-  }*/
+  }
 
   return (
     <Container>
       <MyPageTitle title="Catégories" />
-
-      {/* {categories.length > 0 ? (
-        <Box>
-          {categories.map((category: Categories) => (
-            <Typography key={category._id} sx={{ color: "black" }}>
-              {category.name}
-            </Typography>
-          ))}
-        </Box>
-      ) : (
-        <Typography sx={{ color: "black" }}>Aucune catégorie</Typography>
-      )} */}
       <MyCategoryTable categories={categories} />
     </Container>
   );
