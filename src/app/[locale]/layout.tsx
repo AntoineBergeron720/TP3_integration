@@ -1,8 +1,6 @@
-//import './globals.css'
 import { Inter } from 'next/font/google'
 import MyFooter from '@/components/molecules/myFooter/myFooter';
 import MyMenu from '@/components/molecules/myMenu/myMenu'
-//import ApplicationProvider from "@/context/application.provider";
 import { NextIntlClientProvider } from 'next-intl';
 
 
@@ -37,14 +35,12 @@ export default async function RootLayout({
     <html lang={params.locale}>
       <body style={{ backgroundColor: 'white' }}>
         <NextIntlClientProvider locale={params.locale} messages={translations}>
-          {/* <ApplicationProvider> */}
           <>
-           <MyMenu />
+            <MyMenu />
             {children}
+            <MyFooter />
           </>
-          {/* </ApplicationProvider> */}
         </NextIntlClientProvider>
-        <MyFooter />
       </body>
     </html>
   )
