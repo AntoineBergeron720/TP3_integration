@@ -18,6 +18,7 @@ import { Section } from "../section/section";
 
 interface MyCategoryTableProps {
   categories: Categories[];
+  deleteCategoryCallBack: (id: string) => void;
 }
 
 export default function MyCategoryTable(props: MyCategoryTableProps) {
@@ -77,7 +78,7 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
                   <TableCell align="center">
                     <Button
                       sx={{ color: "black" }}
-                      action={null} // change to the function that gonna delete the product
+                      onClick={() => props.deleteCategoryCallBack(category._id)}
                     >
                       <DeleteForeverIcon />
                     </Button>
