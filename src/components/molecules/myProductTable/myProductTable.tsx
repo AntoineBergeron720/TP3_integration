@@ -17,7 +17,7 @@ import { Categories, Products } from "@/types/modules";
 import { Section } from "../section/section";
 
 interface MyProductTableProps {
-  myProductArray: Products[];
+  products: Products[];
   categories: Categories[];
 }
 
@@ -31,7 +31,7 @@ export default function MyProductTable(props: MyProductTableProps) {
 
   const router = useRouter();
 
-  props.myProductArray.forEach(product => {
+  props.products.forEach(product => {
     props.categories.forEach(category => {
       if (product.categoryId == category._id) {
         product.categoryId = category.name;
@@ -72,8 +72,8 @@ export default function MyProductTable(props: MyProductTableProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.myProductArray.length > 0
-              ? props.myProductArray.map((product: Products) => (
+          {props.products.length > 0
+            ? props.products.map((product: Products) => (
                   <TableRow key={product._id}>
                     {columns.map((column) => (
                       <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>
