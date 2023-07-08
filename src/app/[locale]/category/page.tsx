@@ -2,7 +2,7 @@
 
 import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
 import { Box } from "@mui/material";
-import { getData } from "../../common/jeuxApi";
+import { getData } from "../../../common/jeuxApi";
 import { Category } from "@mui/icons-material";
 import { useState } from "react";
 import { Categories } from "@/types/modules";

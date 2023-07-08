@@ -39,7 +39,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={params.locale} messages={translations}>
           {/* <ApplicationProvider> */}
           <>
-            <MyMenu />
+           <MyMenu />
             {children}
           </>
           {/* </ApplicationProvider> */}

@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter} from 'next/navigation';
+import { useTranslations } from "next-intl";
 
 interface MenuItem {
   label: string;
@@ -18,12 +19,13 @@ interface MenuItem {
 }
 
 const pages: MenuItem[] = [
-  { label: 'ACCUEIL', route: '/' },
-  { label: 'CATEGORIES', route: '/category' },
-  { label: 'PRODUITS', route: '/product' },
+  { label: 'home', route: '/' },
+  { label: 'category', route: '/category' },
+  { label: 'product', route: '/product' },
 ];
 
 export default function MyMenu() {
+  const t = useTranslations();
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -101,7 +103,7 @@ export default function MyMenu() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.label} onClick={(e) => handleOpenPage(page.route)}>
-                  <Typography textAlign="center">{page.label}</Typography>
+                  <Typography textAlign="center">{t(`common.${page.label}`)}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -147,7 +149,7 @@ export default function MyMenu() {
                   '&:hover' : { borderBottomColor: 'white'}
                 }}
               >
-                {page.label}
+                {t(`common.${page.label}`)}
               </Button>
             ))}
           </Box>
@@ -160,7 +162,6 @@ export default function MyMenu() {
               onClick={() => {
                 changeLanguage('fr');
               }}>Fr</Button>   
-
           </Box>
         </Toolbar>
       </Container>
