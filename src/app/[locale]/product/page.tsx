@@ -1,10 +1,10 @@
 "use client";
 
-import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
+import MyProductTable from "@/components/molecules/myProductTable/myProductTable";
 import { Box } from "@mui/material";
 import { Categories } from "@/types/modules";
 import { Products } from "@/types/modules";
-import { getData } from "../../common/jeuxApi";
+import { getData } from "../../../common/jeuxApi";
 import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 
@@ -42,7 +42,7 @@ export default function ProductPage() {
     <Box sx={{ padding: "10px" }}>
       <MyPageTitle title="Liste des produits" />
 
-      <MyProductTable myProductArray={products} categories={categories} />
+      <MyProductTable products={products} categories={categories} />
     </Box>
   );
 }
