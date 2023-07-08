@@ -4,6 +4,8 @@ import MyButtonCancel from '../../atoms/button/my-button-cancel';
 import { useForm } from 'react-hook-form';
 import MyButtonSave from '@/components/atoms/button/my-button-save';
 import { postData } from '@/app/common/jeuxApi';
+import { useRouter } from 'next/router';
+
 
 interface MyFormCategoryProps {
   name: string | undefined;
@@ -14,6 +16,12 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
   const { handleSubmit, register, formState: { errors } } = useForm<MyFormCategoryProps>();
   const [message, setMessage] = useState('');
   const categoryNameRef = useRef(null);
+ const router = useRouter();
+
+  const handleCancel = () => {
+   router.push('/category/page');
+  };
+
 
   function onSubmit(data: MyFormCategoryProps) {
     postData('https://api-tp3-integration.onrender.com/categories/', data)
@@ -25,6 +33,8 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
       console.error(error);
       setMessage('Error');
     });
+
+   
   };
 
   return (
@@ -53,7 +63,7 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
               gap: 2,
             }}
           >
-            <MyButtonCancel />
+            <MyButtonCancel onClick={handleCancel} />
             <MyButtonSave />
           </Grid>
         </Grid>
