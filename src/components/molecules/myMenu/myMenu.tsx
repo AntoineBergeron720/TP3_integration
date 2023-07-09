@@ -42,9 +42,16 @@ export default function MyMenu() {
     setAnchorElUser(null);
   };
   const changeLanguage = (language: string) => {
-    window.location.href = `/${language}`
+    const windowHref = window.location.href
+    const goTo = windowHref.replace(`/${getCurrentLang()}`, `/${language}`)
+    window.location.href = goTo
   };
 
+  const getCurrentLang = () => {
+    const url = new URL(window.location.href)
+    const tokens = url.pathname.split('/')
+    return tokens.length > 0 ? tokens[1] : ''
+  }
 
   function handleOpenPage(goToRoute: string) {
     return router.push(goToRoute);
