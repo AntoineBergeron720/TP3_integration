@@ -15,8 +15,11 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
 import { Categories, Products } from "@/types/modules";
 import { Section } from "../section/section";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 interface MyProductTableProps {
+  loading?: boolean;
   myProductArray: Products[];
   categories: Categories[];
 }
@@ -40,8 +43,8 @@ export default function MyProductTable(props: MyProductTableProps) {
   });
 
   return (
-    <Section>
-      <TableContainer>
+    <Section >
+      <TableContainer style={{marginBottom: '100px'}}>
         <Table>
           <TableHead>
             <TableRow>
@@ -94,9 +97,19 @@ export default function MyProductTable(props: MyProductTableProps) {
                 ))
               : <TableRow>
                   <TableCell colSpan={5} align="center">
-                    <Typography sx={{ fontSize: "1.5em", color: "black" }}>
-                      Aucun produit
-                    </Typography>
+                    {
+                      (!props.loading) && 
+                      <Typography sx={{ fontSize: "1.5em", color: "black" }}>
+                        Aucun produit
+                      </Typography>
+                    }
+                    
+                    {
+                      props.loading && props.loading == true && 
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <CircularProgress />
+                      </Box>
+                    }
                   </TableCell>
                 </TableRow>
             }

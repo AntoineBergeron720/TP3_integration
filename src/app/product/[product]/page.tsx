@@ -18,10 +18,10 @@ export default function AddProduct() {
       maxWidth="sm"
     >
       <Box sx={{ mb: 10 }}>
-        <MyPageTitle title="Ajouter un produit" />
+        <MyPageTitle title="Modifier un produit" />
       </Box>
       <Box>
-        <MyFormUpdateProduct name="test"/>
+        <MyFormUpdateProduct titre="test" description="test" prix="test" category="test" />
       </Box>
     </Container>
   );

@@ -4,45 +4,38 @@ import MyProductTable from "@/components/molecules/myProductArray/myProductTable
 import { Box } from "@mui/material";
 import { Categories } from "@/types/modules";
 import { Products } from "@/types/modules";
-import { getData } from "../common/jeuxApi";
+import { getProducts, getCategories } from "@/utils/api";
 import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 
 export default function ProductPage() {
   const [products, setProducts] = useState<Products[]>([]);
   const [categories, setCategories] = useState<Categories[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    
     if (products.length > 0) return;
-    getCategories();
-  }, [products]);
-
-  function getProducts() {
-    getData("https://api-tp3-integration.onrender.com/products")
-      .then((data) => {
+    setLoading(true);
+    getCategories().then((data)=> {
+      setCategories(data.categories);
+    }).then(()=> {
+      getProducts().then((data)=> {
         setProducts(data.products);
+        setLoading(false);
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    }).catch((err)=> console.log(err));
+    
+  }, [products, categories]);
 
-  function getCategories() {
-    getData("https://api-tp3-integration.onrender.com/categories")
-      .then((data) => {
-        setCategories(data.categories);
-        getProducts();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   return (
     <Box sx={{ padding: "10px" }}>
       <MyPageTitle title="Liste des produits" />
+      
 
-      <MyProductTable myProductArray={products} categories={categories} />
+      <MyProductTable loading={loading} myProductArray={products} categories={categories} />
+      
     </Box>
   );
 }
