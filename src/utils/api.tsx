@@ -62,18 +62,10 @@ export async function getCategories(){
 
 export async function createCategory(data: any){
     postData(url_base + "/categories/", data)
-      .then((result) => {
-        setMessage("")
-        toast.success('Catégorie ajoutée!')
-        if(categoryNameRef && categoryNameRef.current){
-          categoryNameRef.current.value = ""
-          router.push('/category')
-        }
-
-      })
+      .then((result) => result
+      )
       .catch((error) => {
         console.error(error);
-        setMessage("Error");
       });
 
 }

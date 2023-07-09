@@ -3,7 +3,7 @@ import { Box, Grid, TextField } from "@mui/material";
 import MyButtonCancel from "../../atoms/button/my-button-cancel";
 import { useForm } from "react-hook-form";
 import MyButtonSave from "@/components/atoms/button/my-button-save";
-import { postData } from "@/utils/api";
+import { createCategory } from "@/utils/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
@@ -31,20 +31,20 @@ export default function MyFormCreateCategory(props: MyFormCategoryProps) {
   const router = useRouter();
 
   function onSubmit(data: MyFormCategoryProps) {
-    postData("https://api-tp3-integration.onrender.com/categories/", data)
-      .then((result) => {
-        setMessage("")
-        toast.success('Catégorie ajoutée!')
-        if(categoryNameRef && categoryNameRef.current){
-          categoryNameRef.current.value = ""
-          router.push('/category')
-        }
+    createCategory(data).then((result) => {
+      setMessage("")
+      toast.success('Catégorie ajoutée!')
+      if(categoryNameRef && categoryNameRef.current){
+        categoryNameRef.current.value = ""
+        router.push('/category')
+      }
 
-      })
-      .catch((error) => {
-        console.error(error);
-        setMessage("Error");
-      });
+    })
+    .catch((error) => {
+      console.error(error);
+      setMessage("Error");
+    });
+      
   }
 
   return (
