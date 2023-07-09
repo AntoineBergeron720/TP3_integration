@@ -16,7 +16,7 @@ export default function MyPageTitle(props: MyPageTitleProps) {
         color: "#007FFF",
         fontSize: "2rem",
         fontFamily: "roboto",
-        marginTop: "5%",
+        marginTop: "70px"
       }}
     >
       {props.title}
