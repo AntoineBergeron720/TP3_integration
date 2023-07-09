@@ -8,7 +8,6 @@ import { Typography, Box } from '@mui/material';
 
 
 export default function Home() {
-  
   return (
     <>
       <Box component="div" sx={{mb: "40px"}}>
@@ -20,6 +19,7 @@ export default function Home() {
           fontFamily: "roboto",
           marginBottom: "20px",
           fontWeight: "400",
+          color: '#333'
         }}>
 
           Notre mandat est de créer une interface d’administration simple en utilisant les composantes de Material UI et Next.js. Ce
@@ -29,8 +29,6 @@ export default function Home() {
           qui traite des différents produits offerts par une entreprise de jouet, ainsi que leurs catégories.</Typography>
         <BasicTable />
 
-        
-        
       </Section>
 
     </>
