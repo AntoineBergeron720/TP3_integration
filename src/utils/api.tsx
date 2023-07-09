@@ -55,3 +55,11 @@ export async function getProducts(){
         throw error;
     });
 }
+
+export async function getProductById(id: string){
+    return getData(url_base + "/products/"+ id)
+    .then((data) => data)
+    .catch((error) => {
+        throw error;
+    });
+}

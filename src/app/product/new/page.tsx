@@ -2,7 +2,7 @@
 
 import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import { MyFormCreateProduct } from "@/components/molecules/my-form-product/my-form-product";
+import { MyFormCreateProduct } from "@/components/molecules/myFormProduct/myFormProduct";
 import { Box, Container } from "@mui/material";
 
 export default function AddProduct() {

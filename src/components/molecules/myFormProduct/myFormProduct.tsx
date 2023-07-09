@@ -3,15 +3,21 @@ import MyButtonCancel from "../../atoms/button/my-button-cancel";
 import MyButtonSave from "../../atoms/button/my-button-save";
 import { useState, useEffect } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { getCategories } from '@/utils/api';
+import toast from "react-hot-toast";
 
 export function MyFormCreateProduct() {
 
     const [categoryList, setCategoryList] = useState<any[]>([])
 
     useEffect(() => {
-        let response = [{ _id: '1', name: 'cat 1' }, { _id: '2', name: 'cat 2' }] // TODO : REQUÊTE À L'API
-        // TODO : Validation code response, si 200 -> setCategoryList avec liste retourné par l'API, si erreur, toast.erreur
-        setCategoryList(response)
+       
+        getCategories().then((data)=> {
+            setCategoryList(data.categories) 
+        }).catch(() => {
+            toast.error("Erreur lors de la récupération des catégories");
+        })
+
     }, [])
 
     const [category, setCategory] = useState('');
@@ -19,10 +25,6 @@ export function MyFormCreateProduct() {
     const handleChange = (event: SelectChangeEvent) => {
         setCategory(event.target.value as string);
     };
-
-    useEffect(() => {
-        console.log(category)
-    }, [category])
 
     return (
         <Grid container rowGap={3} columnGap={2}>
@@ -123,7 +125,7 @@ export function MyFormCreateProduct() {
 interface MyFormUpdateProductProps {
     titre: string,
     description: string,
-    prix: string,
+    prix: number,
     category: string
 }
 
@@ -131,9 +133,13 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
     const [categoryList, setCategoryList] = useState<any[]>([])
 
     useEffect(() => {
-        let response = [{ _id: '1', name: 'cat 1' }, { _id: '2', name: 'cat 2' }] // TODO : REQUÊTE À L'API
-        // TODO : Validation code response, si 200 -> setCategoryList avec liste retourné par l'API, si erreur, toast.erreur
-        setCategoryList(response)
+
+        getCategories().then((data)=> {
+            setCategoryList(data.categories) 
+        }).catch(() => {
+            toast.error("Erreur lors de la récupération des catégories");
+        })
+        
     }, [])
 
     const [category, setCategory] = useState('');
@@ -152,7 +158,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                 <TextField
                     id="titre"
                     label="Nouveau titre"
-                    value={props.titre}
+                    defaultValue={props.titre}
                     variant="outlined"
                     fullWidth
                     sx={{
@@ -167,7 +173,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                 <TextField
                     id="description"
                     label="Nouvelle description"
-                    value={props.description}
+                    defaultValue={props.description}
                     variant="outlined"
                     multiline
                     minRows={5}
@@ -185,7 +191,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                 <TextField
                     id="prix"
                     label="Nouveau prix"
-                    value={props.prix}
+                    defaultValue={props.prix}
                     variant="outlined"
                     fullWidth
                     sx={{
@@ -215,7 +221,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                     <Select
                         labelId="category"
                         id="categorySelect"
-                        value={props.category}
+                        defaultValue={props.category}
                         label="Nouvelle catégorie"
                         onChange={handleChange}
 
