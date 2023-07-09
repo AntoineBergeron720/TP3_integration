@@ -1,8 +1,8 @@
-import { Inter } from 'next/font/google'
+import { Inter, Roboto } from "next/font/google";
 import MyFooter from '@/components/molecules/myFooter/myFooter';
 import MyMenu from '@/components/molecules/myMenu/myMenu'
 import { NextIntlClientProvider } from 'next-intl';
-
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,6 +39,34 @@ export default async function RootLayout({
             <MyMenu />
             {children}
             <MyFooter />
+            <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              padding: '16px',
+              fontFamily: 'Roboto'
+            },
+            success: {
+              iconTheme: {
+                primary: 'white',
+                secondary: 'green'
+              },
+              style: {
+                backgroundColor: 'green',
+                color: 'white'
+              }
+            },
+            error: {
+              style: {
+                backgroundColor: 'red',
+                color: 'white'
+              }
+            }
+            
+          }} 
+          containerStyle={{
+            bottom: 100
+          }}/>
           </>
         </NextIntlClientProvider>
       </body>
