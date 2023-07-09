@@ -11,10 +11,8 @@ import { Products } from "@/types/modules";
 
 export default function AddProduct() {
 
-  // Étape 1 : prendre le id * utiliser router
   const params = useParams()
 
-  // Étape 2 : Utiliser requête api getProductById pour obtenir le produit avec id (étape 1)
   const [product, setProduct] = useState<Products>();
   
   useEffect(() => {
@@ -25,8 +23,6 @@ export default function AddProduct() {
     })
   }, [] )
   
-
-  // Étape 3 : Passer au props (titre, description, prix...) les valeurs du produit obtenu
   return (
     <Container
       sx={{
