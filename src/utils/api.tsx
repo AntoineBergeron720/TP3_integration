@@ -44,8 +44,7 @@ export async function deleteCategory(id: string){
     .then((data) => data)
     .catch((error) => {
         throw error;
-    }
-    );
+    });
 }
 
 export async function getProducts(){
@@ -58,6 +57,14 @@ export async function getProducts(){
 
 export async function getProductById(id: string){
     return getData(url_base + "/products/"+ id)
+    .then((data) => data)
+    .catch((error) => {
+        throw error;
+    });
+}
+
+export async function deleteProduct(id: string){
+    return deleteData(url_base + "/products/" + id)
     .then((data) => data)
     .catch((error) => {
         throw error;

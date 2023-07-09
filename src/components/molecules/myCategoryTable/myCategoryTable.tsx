@@ -18,6 +18,8 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useRouter } from "next/navigation";
 import { Section } from "../section/section";
 import toast from "react-hot-toast";
+import { MyConfirmModal } from "@/components/molecules/myConfirmModal/myConfirmModal"
+import { useState, useCallback } from "react";
 
 interface MyCategoryTableProps {
   loading?: boolean;
@@ -30,6 +32,37 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
   const columns = [{ field: "name", headerName: "Nom" }];
 
   const router = useRouter();
+
+  const [show, setShow] = useState(false);
+
+  const [selectedData, setSelectedData] = useState<Categories | null>();
+  
+  const handleDelete = useCallback(() => {
+    if(selectedData){
+
+      props.deleteCategoryCallBack(selectedData._id)
+
+      props.setCategories( 
+        props.categories.filter(
+          (cat) => {
+            
+              return cat._id != selectedData._id
+            }
+          
+        )
+      );
+
+      toast.success("Catégorie supprimée");
+   }
+
+    setShow(false);
+  }, [props, selectedData])
+
+  const handleCancel = useCallback(() => {
+    setShow(false);
+    setSelectedData(null)
+  }, [])
+
 
   return (
     <Section>
@@ -85,13 +118,8 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
                     <Button
                       sx={{ color: "black" }}
                       onClick={() => {
-                        props.deleteCategoryCallBack(category._id);
-                        props.setCategories(
-                          props.categories.filter(
-                            (cat) => cat._id != category._id
-                          )
-                        );
-                        toast.success("Catégorie supprimée");
+                        setShow(true)
+                        setSelectedData(category)
                       }}
                     >
                       <DeleteForeverIcon />
@@ -129,6 +157,7 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
 
       </TableContainer>
 
+      <MyConfirmModal show={show} setShow={setShow} title="Attention !" message="Êtes-vous certain(e) de vouloir supprimer cette catégorie?" onCancel={handleCancel} onDelete={handleDelete} />
 
     </Section>
   );

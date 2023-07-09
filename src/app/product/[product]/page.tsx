@@ -11,8 +11,8 @@ import { Products } from "@/types/modules";
 
 export default function AddProduct() {
 
-  const params = useParams()
 
+  const params = useParams()
   const [product, setProduct] = useState<Products>();
   
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function AddProduct() {
     })
   }, [] )
   
+
   return (
     <Container
       sx={{
