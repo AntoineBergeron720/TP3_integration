@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import { Categories } from "@/types/modules";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyCategoryTable from "@/components/molecules/myCategoryTable/myCategoryTable";
+import { useTranslations } from "next-intl";
 
 export default function CategoryPage() {
+  const t = useTranslations();
   const [categories, setCategories] = useState<Categories[]>([]);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function CategoryPage() {
 
   return (
     <Container>
-      <MyPageTitle title="Catégories" />
+      <MyPageTitle title={t("categories.page-title")} />
       <MyCategoryTable
         categories={categories}
         deleteCategoryCallBack={deleteCategory}

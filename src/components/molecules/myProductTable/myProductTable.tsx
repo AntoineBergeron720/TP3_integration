@@ -15,6 +15,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
 import { Categories, Products } from "@/types/modules";
 import { Section } from "../section/section";
+import { useTranslations } from "next-intl";
 
 interface MyProductTableProps {
   products: Products[];
@@ -22,11 +23,12 @@ interface MyProductTableProps {
 }
 
 export default function MyProductTable(props: MyProductTableProps) {
+  const t = useTranslations();
   const columns = [
-    { field: "title", headerName: "Produit" },
-    { field: "description", headerName: "Description"},
-    { field: "categoryId", headerName: "Catégorie" },
-    { field: "price", headerName: "Prix ($)" },
+    { field: "title", headerName: t("products.product") },
+    { field: "description", headerName: t("products.description") },
+    { field: "categoryId", headerName: t("products.category") },
+    { field: "price", headerName: t("products.price") },
   ];
 
   const router = useRouter();

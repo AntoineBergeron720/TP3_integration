@@ -7,8 +7,10 @@ import { Products } from "@/types/modules";
 import { getData } from "../../../common/jeuxApi";
 import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
+import { useTranslations } from "next-intl";
 
 export default function ProductPage() {
+  const t = useTranslations();
   const [products, setProducts] = useState<Products[]>([]);
   const [categories, setCategories] = useState<Categories[]>([]);
 
@@ -40,7 +42,7 @@ export default function ProductPage() {
 
   return (
     <Box sx={{ padding: "10px" }}>
-      <MyPageTitle title="Liste des produits" />
+      <MyPageTitle title={t("products.page-title")} />
 
       <MyProductTable products={products} categories={categories} />
     </Box>

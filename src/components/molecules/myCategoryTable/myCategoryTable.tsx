@@ -15,6 +15,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useRouter } from "next/navigation";
 import { Section } from "../section/section";
+import { useTranslations } from "next-intl";
 
 interface MyCategoryTableProps {
   categories: Categories[];
@@ -22,7 +23,8 @@ interface MyCategoryTableProps {
 }
 
 export default function MyCategoryTable(props: MyCategoryTableProps) {
-  const columns = [{ field: "name", headerName: "Nom" }];
+  const t = useTranslations();
+  const columns = [{ field: "name", headerName: t("categories.category") }];
 
   const router = useRouter();
 

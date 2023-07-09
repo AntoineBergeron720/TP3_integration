@@ -4,8 +4,11 @@ import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyFormCategory from "@/components/molecules/my-form-category/my-form-category";
 import { Box, Container } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function AddCategory() {
+  const t = useTranslations();
+
   return (
     <Container
       sx={{
@@ -18,7 +21,7 @@ export default function AddCategory() {
       maxWidth="sm"
     >
       <Box sx={{ mb: 10 }}>
-        <MyPageTitle title="Ajouter une catégorie" />
+        <MyPageTitle title={t("categoryAdded.page-title")} />
       </Box>
       <Box>
         <MyFormCategory name="test" />
