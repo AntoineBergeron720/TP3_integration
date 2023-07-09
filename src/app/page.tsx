@@ -8,6 +8,7 @@ import { Typography, Box } from '@mui/material';
 
 
 export default function Home() {
+  
   return (
     <>
       <Box component="div" sx={{mb: "40px"}}>
@@ -28,6 +29,8 @@ export default function Home() {
           qui traite des différents produits offerts par une entreprise de jouets, ainsi que leurs catégories.</Typography>
         <BasicTable />
 
+        
+        
       </Section>
 
     </>

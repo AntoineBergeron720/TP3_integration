@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyFormCategory from "@/components/molecules/my-form-category/my-form-category";
+import MyFormCategory from "@/components/molecules/myFormCategory/myFormCategory";
 import { Box, Container, Typography } from "@mui/material";
 import { Category } from "@/types/modules";
 import { getData } from "@/app/common/jeuxApi";
