@@ -59,6 +59,7 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
+              defaultValue={props.name}
               inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}
               helperText={errors.name?.message}

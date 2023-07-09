@@ -24,7 +24,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
   }, [categoryData]);
 
   function fetchCategory() {
-    getCategoryById("637bc5cc85b7540a4240605c") // TODO : useParams to get category id
+    getCategoryById(params.category) // TODO : useParams to get category id
     .then((data) => {
       console.log(data);
       setCategoryData(data.category);
@@ -51,7 +51,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
         <Box>
           {categoryData ? (
             <Box>
-              <MyFormCategory categoryName={categoryData.name} categoryId={categoryData._id} />
+              <MyFormCategory name={categoryData.name} categoryId={categoryData._id} />
             </Box>
           ) : (
             <Typography> No category found.</Typography>
