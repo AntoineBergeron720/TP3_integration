@@ -1,21 +1,40 @@
 "use client";
 
-import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
-import { Box } from "@mui/material";
-import { getData } from "../common/jeuxApi";
-import { Category } from "@mui/icons-material";
-import { useState } from "react";
+import { Box, Typography } from "@mui/material";
+import { getCategories, deleteCategory } from "@/utils/api";
+import { useEffect, useState } from "react";
 import { Categories } from "@/types/modules";
+import MyPageTitle from "@/components/molecules/title/my-page-title";
+import MyCategoryTable from "@/components/molecules/myCategoryTable/myCategoryTable";
+import toast from "react-hot-toast";
 
+export default function CategoryPage() {
+  const [categories, setCategories] = useState<Categories[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  useEffect(() => {
+    setLoading(true);
 
-export default async function CategoryPage() {
-  const data = await getData('https://api-tp3-integration.onrender.com/categories')
-  const total = data.categories.length;
+    getCategories()
+      .then((data) => {
+        setCategories(data.categories);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+        toast.error("Erreur lors de la récupération des catégories");
+      });
+  }, []);
+
   return (
-    console.log(data),
-    <Box>
-      
+    <Box sx={{ padding: "10px" }}>
+      <MyPageTitle title="Liste des catégories" />
+      <MyCategoryTable
+        loading={loading}
+        categories={categories}
+        setCategories={setCategories}
+        deleteCategoryCallBack={deleteCategory}
+      />
     </Box>
   );
 }
