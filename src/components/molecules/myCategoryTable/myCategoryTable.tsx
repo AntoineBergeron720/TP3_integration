@@ -1,6 +1,6 @@
 "use client";
 
-import { Categories } from "@/types/modules";
+import { Category } from "@/types/modules";
 import {
   Button,
   Table,
@@ -23,8 +23,8 @@ import { useState, useCallback } from "react";
 
 interface MyCategoryTableProps {
   loading?: boolean;
-  categories: Categories[];
-  setCategories: (categories: Categories[]) => void;
+  categories: Category[];
+  setCategories: (categories: Category[]) => void;
   deleteCategoryCallBack: (id: string) => void;
 }
 
@@ -35,7 +35,7 @@ export function MyCategoryTable(props: MyCategoryTableProps) {
 
   const [show, setShow] = useState(false);
 
-  const [selectedData, setSelectedData] = useState<Categories | null>();
+  const [selectedData, setSelectedData] = useState<Category | null>();
   
   const handleDelete = useCallback(() => {
     if(selectedData){
@@ -107,7 +107,7 @@ export function MyCategoryTable(props: MyCategoryTableProps) {
 
           <TableBody>
             {props.categories && props.categories.length > 0 ? (
-              props.categories.map((category: Categories) => (
+              props.categories.map((category: Category) => (
                 <TableRow key={category._id}>
                   <TableCell align="left">
                     <Typography sx={{ fontSize: "1.25em" }}>
