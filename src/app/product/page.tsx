@@ -15,29 +15,34 @@ export default function ProductPage() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    
     setLoading(true);
-    getCategories().then((data)=> {
-      setCategories(data.categories);
-    }).then(()=> {
-      getProducts().then((data)=> {
-        setProducts(data.products);
-        setLoading(false);
+    getCategories()
+      .then((data) => {
+        setCategories(data.categories);
       })
-    }).catch((err)=> {
-      setLoading(false);
-      toast.error("Erreur lors du chargement des produits");
-    });
-    
+      .then(() => {
+        getProducts().then((data) => {
+          setProducts(data.products);
+          setLoading(false);
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error("Erreur lors du chargement des produits");
+      });
   }, []);
-
 
   return (
     <Box sx={{ padding: "10px" }}>
       <MyPageTitle title="Liste des produits" />
 
-      <MyProductTable loading={loading} products={products} categories={categories} setProducts={setProducts} deleteProductCallBack={deleteProduct} />
-      
+      <MyProductTable
+        loading={loading}
+        products={products}
+        categories={categories}
+        setProducts={setProducts}
+        deleteProductCallBack={deleteProduct}
+      />
     </Box>
   );
 }

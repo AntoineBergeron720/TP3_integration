@@ -68,12 +68,19 @@ export default function MyProductTable(props: MyProductTableProps) {
     setSelectedData(null)
   }, [])
 
-  props.products.forEach(product => {
-    props.categories.forEach(category => {
+  props.products.forEach((product) => {
+    let foundMatch = false;
+  
+    props.categories.forEach((category) => {
       if (product.categoryId == category._id) {
         product.categoryId = category.name;
+        foundMatch = true;
       }
     });
+  
+    if (!foundMatch) {
+      product.categoryId = "N/A";
+    }
   });
 
   return (
