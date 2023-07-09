@@ -1,46 +1,37 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
-import { deleteData, getData } from "../common/jeuxApi";
+import { Box } from "@mui/material";
+import { getCategories, deleteCategory } from "@/utils/api";
 import { useEffect, useState } from "react";
 import { Categories } from "@/types/modules";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyCategoryTable from "@/components/molecules/myCategoryTable/myCategoryTable";
-
+import { MyCategoryTable } from "@/components/molecules/myCategoryTable/myCategoryTable";
+import toast from "react-hot-toast";
+ 
 export default function CategoryPage() {
   const [categories, setCategories] = useState<Categories[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (categories.length === 0) getCategories();
-  }, [categories]);
 
-  function getCategories() {
-    getData("https://api-tp3-integration.onrender.com/categories")
-      .then((data) => {
-        setCategories(data.categories);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function deleteCategory(id: string) {
-    deleteData(`https://api-tp3-integration.onrender.com/categories/${id}`)
-      .then(() => {
-        getCategories();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    setLoading(true);
+    
+    getCategories().then((data)=> {
+      setCategories(data.categories);
+      setLoading(false);
+    })
+    .catch(()=> {
+      setLoading(false);
+      toast.error("Erreur lors de la récupération des catégories");
+    });
+    
+  }, []);
 
   return (
-    <Container>
-      <MyPageTitle title="Catégories" />
-      <MyCategoryTable
-        categories={categories}
-        deleteCategoryCallBack={deleteCategory}
-      />
-    </Container>
+    <Box sx={{ padding: "10px" }}>
+      <MyPageTitle title="Liste des catégories" />
+      <MyCategoryTable loading={loading} categories={categories} setCategories={setCategories} deleteCategoryCallBack={deleteCategory}  />
+    </Box>
   );
+
 }

@@ -28,7 +28,7 @@ interface MyCategoryTableProps {
   deleteCategoryCallBack: (id: string) => void;
 }
 
-export function MyCategoryTable(props: MyCategoryTableProps) {
+export default function MyCategoryTable(props: MyCategoryTableProps) {
   const columns = [{ field: "name", headerName: "Nom" }];
 
   const router = useRouter();
