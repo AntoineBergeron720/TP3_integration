@@ -60,6 +60,14 @@ export async function getCategories(){
     });   
 }
 
+export async function getCategoryById(id: string){
+    return getData(url_base + "/categories/"+ id)
+    .then((data) => data)
+    .catch((error) => {
+        throw error;
+    });
+}
+
 export async function createCategory(data: any){
     postData(url_base + "/categories/", data)
       .then((result) => result
