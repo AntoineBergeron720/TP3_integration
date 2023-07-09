@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import MyFormCategory from "@/components/molecules/myFormCategory/myFormCategory";
 import { Box, Container } from "@mui/material";
-import { Category } from "@/types/modules";
+import { Categories } from "@/types/modules";
 import { getCategoryById } from "@/utils/api";
 import { Typography } from "@mui/material";
 
@@ -15,7 +15,7 @@ interface EditCategoryPageProps{
 }
 
 export default function EditCategory({params}: EditCategoryPageProps) {
-  const [categoryData, setCategoryData] = useState<Category>();
+  const [categoryData, setCategoryData] = useState<Categories>();
 
   useEffect(() => {
     if (!categoryData) {

@@ -7,13 +7,13 @@ import { Box, Container } from "@mui/material";
 import { useParams } from 'next/navigation'
 import { getProductById } from "@/utils/api";
 import toast from "react-hot-toast";
-import { Product } from "@/types/modules";
+import { Products } from "@/types/modules";
 
 export default function AddProduct() {
 
 
   const params = useParams()
-  const [product, setProduct] = useState<Product>();
+  const [product, setProduct] = useState<Products>();
   
   useEffect(() => {
     getProductById(params.product).then((data) => {

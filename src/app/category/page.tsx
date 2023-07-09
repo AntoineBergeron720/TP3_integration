@@ -3,13 +3,13 @@
 import { Box } from "@mui/material";
 import { getCategories, deleteCategory } from "@/utils/api";
 import { useEffect, useState } from "react";
-import { Category } from "@/types/modules";
+import { Categories } from "@/types/modules";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import { MyCategoryTable } from "@/components/molecules/myCategoryTable/myCategoryTable";
 import toast from "react-hot-toast";
  
 export default function CategoryPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Categories[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
