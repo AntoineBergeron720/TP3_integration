@@ -11,10 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useRouter } from "next/navigation";
 import { Categories, Products } from "@/types/modules";
 import { Section } from "../section/section";
+import { deleteData } from "@/app/common/jeuxApi";
 
 interface MyProductTableProps {
   myProductArray: Products[];
@@ -24,20 +25,40 @@ interface MyProductTableProps {
 export default function MyProductTable(props: MyProductTableProps) {
   const columns = [
     { field: "title", headerName: "Produit" },
-    { field: "description", headerName: "Description"},
+    { field: "description", headerName: "Description" },
     { field: "categoryId", headerName: "Catégorie" },
     { field: "price", headerName: "Prix ($)" },
   ];
-
   const router = useRouter();
 
-  props.myProductArray.forEach(product => {
-    props.categories.forEach(category => {
+  props.myProductArray.forEach((product) => {
+    let foundMatch = false;
+  
+    props.categories.forEach((category) => {
       if (product.categoryId == category._id) {
         product.categoryId = category.name;
+        foundMatch = true;
       }
     });
+  
+    if (!foundMatch) {
+      product.categoryId = "N/A";
+    }
   });
+  // 1. click on delete
+  // 2. get the api url
+  // 3. api return new array
+  // 4. replace the old array with the new one
+
+  function deleteProduct(productId: string) {
+    deleteData("https://api-tp3-integration.onrender.com/products/" + productId)
+      .then((data) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <Section>
@@ -47,7 +68,13 @@ export default function MyProductTable(props: MyProductTableProps) {
             <TableRow>
               {columns.map((column) => (
                 <TableCell key={column.field} align="left">
-                  <Typography sx={{ fontSize: "1.75em", color: "primary.main", whiteSpace: 'nowrap' }}>
+                  <Typography
+                    sx={{
+                      fontSize: "1.75em",
+                      color: "primary.main",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
                     {column.headerName}
                   </Typography>
                 </TableCell>
@@ -58,12 +85,18 @@ export default function MyProductTable(props: MyProductTableProps) {
                   color="primary"
                   onClick={() => router.push("/product/new")}
                 >
-                  <Typography sx={{ display: "flex", alignContent: "center", fontSize:"1em" }}>
+                  <Typography
+                    sx={{
+                      display: "flex",
+                      alignContent: "center",
+                      fontSize: "1em",
+                    }}
+                  >
                     Ajouter
                     <AddBoxIcon
                       sx={{
                         borderRadius: "5px",
-                        marginLeft: "5px"
+                        marginLeft: "5px",
                       }}
                     />
                   </Typography>
@@ -72,34 +105,44 @@ export default function MyProductTable(props: MyProductTableProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.myProductArray.length > 0
-              ? props.myProductArray.map((product: Products) => (
-                  <TableRow key={product._id}>
-                    {columns.map((column) => (
-                      <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>
-                        <Typography sx={{ fontSize: "1.25em" }}>
-                          {product.hasOwnProperty(column.field) ? column.field == "price" ? product[column.field] / 100 : product[column.field] : null}
-                        </Typography>
-                      </TableCell>
-                    ))}
-                    <TableCell align="center">
-                      <Button
-                        sx={{ color: "black" }}
-                        action={null} // change to the function that gonna delete the product
-                      >
-                        <DeleteForeverIcon />
-                      </Button>
+            {props.myProductArray.length > 0 ? (
+              props.myProductArray.map((product: Products) => (
+                <TableRow key={product._id}>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.field}
+                      align="left"
+                      onClick={() => router.push("/product/" + product._id)}
+                      sx={{ cursor: "pointer" }}
+                    >
+                      <Typography sx={{ fontSize: "1.25em" }}>
+                        {product.hasOwnProperty(column.field)
+                          ? column.field == "price"
+                            ? product[column.field] / 100
+                            : product[column.field]
+                          : null}
+                      </Typography>
                     </TableCell>
-                  </TableRow>
-                ))
-              : <TableRow>
-                  <TableCell colSpan={5} align="center">
-                    <Typography sx={{ fontSize: "1.5em", color: "black" }}>
-                      Aucun produit
-                    </Typography>
+                  ))}
+                  <TableCell align="center">
+                    <Button
+                      sx={{ color: "black" }}
+                      onClick={(e) => deleteProduct(product._id)} // change to the function that gonna delete the product
+                    >
+                      <DeleteForeverIcon />
+                    </Button>
                   </TableCell>
                 </TableRow>
-            }
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} align="center">
+                  <Typography sx={{ fontSize: "1.5em", color: "black" }}>
+                    Aucun produit
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

@@ -13,6 +13,7 @@ export default async function CategoryPage() {
   const data = await getData('https://api-tp3-integration.onrender.com/categories')
   const total = data.categories.length;
   return (
+    console.log(data),
     <Box>
       
     </Box>
