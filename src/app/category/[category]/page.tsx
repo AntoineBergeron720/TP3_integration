@@ -8,7 +8,13 @@ import { Category } from "@/types/modules";
 import { getCategoryById } from "@/utils/api";
 import { Typography } from "@mui/material";
 
-export default function EditCategory() {
+interface EditCategoryPageProps{
+  params: {
+    category: string;
+  }
+}
+
+export default function EditCategory({params}: EditCategoryPageProps) {
   const [categoryData, setCategoryData] = useState<Category>();
 
   useEffect(() => {

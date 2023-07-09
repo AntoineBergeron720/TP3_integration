@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Box, Grid, TextField } from "@mui/material";
-import MyButtonCancel from "../../atoms/button/my-button-cancel";
+import MyButtonCancel from "@/components/atoms/button/my-button-cancel";
 import { useForm } from "react-hook-form";
 import MyButtonSave from "@/components/atoms/button/my-button-save";
 import { createCategory } from "@/utils/api";
@@ -58,7 +58,6 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
               label="Category Name"
               variant="outlined"
               fullWidth
-
               {...register("name")}
               inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}

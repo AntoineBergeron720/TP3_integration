@@ -109,7 +109,7 @@ export function MyCategoryTable(props: MyCategoryTableProps) {
             {props.categories && props.categories.length > 0 ? (
               props.categories.map((category: Category) => (
                 <TableRow key={category._id}>
-                  <TableCell align="left">
+                  <TableCell align="left"  onClick={() => router.push("/category/" + category._id)} sx={{ cursor: "pointer" }}>
                     <Typography sx={{ fontSize: "1.25em" }}>
                       {category.name}
                     </Typography>
