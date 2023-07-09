@@ -15,16 +15,15 @@ const schema = yup
 //type FormData = yup.InferType<typeof schema>;
 
 interface MyFormCategoryProps {
-  name: string | undefined;
-  categoryId: string | undefined;
+  name: string;
 }
 
 export default function MyFormCategory(props: MyFormCategoryProps) {
   const {
     handleSubmit,
     register,
-    formState: { errors },
-  } = useForm<MyFormCategoryProps>();
+    formState: { errors, isValid },
+  } = useForm<MyFormCategoryProps>({ resolver: yupResolver(schema) });
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
 
@@ -53,8 +52,9 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
               fullWidth
               {...register("name")}
               inputProps={{ ref: categoryNameRef }}
-              error={errors.name ? true : false}
-              helperText={errors.name && "This field is required"}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+              required
             />
           </Grid>
           <Grid
