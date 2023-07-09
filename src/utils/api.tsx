@@ -4,10 +4,31 @@ const url_base = "https://api-tp3-integration.onrender.com"
 
 export async function getData(url:string){
     return fetch(url)
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(response.statusText)
+        }
+        return response.json()
+    })
     .then(data => data)
-    .catch(err => console.log(err))
+    .catch(error => { 
+        throw error
+    });
+}
 
+export async function deleteData(url: string) {
+    return fetch(url, {
+        method: "DELETE",
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error(response.statusText)
+        }
+        return response.json()
+    })
+    .then(data => data)
+    .catch(error => { 
+        throw error 
+    });
 }
 
 export async function getCategories(){
@@ -15,8 +36,16 @@ export async function getCategories(){
     .then((data) => data)
     .catch((error) => {
         throw error;
-    });
-      
+    });   
+}
+
+export async function deleteCategory(id: string){
+    return deleteData(url_base + "/categories/" + id)
+    .then((data) => data)
+    .catch((error) => {
+        throw error;
+    }
+    );
 }
 
 export async function getProducts(){

@@ -9,18 +9,18 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Box,
+  CircularProgress
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
 import { Categories, Products } from "@/types/modules";
 import { Section } from "../section/section";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 
 interface MyProductTableProps {
   loading?: boolean;
-  myProductArray: Products[];
+  products: Products[];
   categories: Categories[];
 }
 
@@ -98,7 +98,7 @@ export default function MyProductTable(props: MyProductTableProps) {
               : <TableRow>
                   <TableCell colSpan={5} align="center">
                     {
-                      (!props.loading) && 
+                      !props.loading && 
                       <Typography sx={{ fontSize: "1.5em", color: "black" }}>
                         Aucun produit
                       </Typography>
