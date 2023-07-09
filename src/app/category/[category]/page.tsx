@@ -7,7 +7,13 @@ import { Box, Container, Typography } from "@mui/material";
 import { Category } from "@/types/modules";
 import { getData } from "@/app/common/jeuxApi";
 
-export default function EditCategory() {
+interface EditCategoryPageProps{
+  params: {
+    category: string;
+  }
+}
+
+export default function EditCategory({params}: EditCategoryPageProps) {
   const [categoryData, setCategoryData] = useState<Category>();
 
   useEffect(() => {
@@ -18,7 +24,7 @@ export default function EditCategory() {
 
   function fetchCategory() {
     getData(
-      "https://api-tp3-integration.onrender.com/categories/637bc5cc85b7540a4240605c"
+      "https://api-tp3-integration.onrender.com/categories/" + params.category
     )
       .then((category: Category) => {
         console.log(category);
@@ -46,7 +52,7 @@ export default function EditCategory() {
       <Box>
         {categoryData ? (
           <Box>
-            <MyFormCategory name={categoryData.category.name} categoryId={categoryData.category._id} />
+            <MyFormCategory name={categoryData.name} categoryId={categoryData._id} />
           </Box>
         ) : (
           <Typography> No category found.</Typography>
