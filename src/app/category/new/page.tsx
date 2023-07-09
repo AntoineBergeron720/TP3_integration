@@ -2,10 +2,15 @@
 
 import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyFormCategory from "@/components/molecules/myFormCategory/myFormCategory";
+import MyFormCreateCategory from "@/components/molecules/myFormCreateCategory/myFormCreateCategory";
 import { Box, Container } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 export default function AddCategory() {
+//const { handleSave, handleSubmit, control } = useForm();
+
+
   return (
     <Container
       sx={{
@@ -21,7 +26,7 @@ export default function AddCategory() {
         <MyPageTitle title="Ajouter une catégorie" />
       </Box>
       <Box>
-        <MyFormCategory name="test" />
+        <MyFormCreateCategory name={""} />
       </Box>
     </Container>
   );
