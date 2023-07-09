@@ -15,7 +15,7 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
-import { Categories, Products } from "@/types/modules";
+import { Category, Product } from "@/types/modules";
 import { Section } from "../section/section";
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
@@ -23,9 +23,9 @@ import { MyConfirmModal } from "@/components/molecules/myConfirmModal/myConfirmM
 
 interface MyProductTableProps {
   loading?: boolean;
-  products: Products[];
-  categories: Categories[];
-  setProducts: (products: Products[]) => void;
+  products: Product[];
+  categories: Category[];
+  setProducts: (products: Product[]) => void;
   deleteProductCallBack: (id: string) => void;
 }
 
@@ -41,7 +41,7 @@ export default function MyProductTable(props: MyProductTableProps) {
 
   const [show, setShow] = useState(false);
 
-  const [selectedData, setSelectedData] = useState<Products | null>();
+  const [selectedData, setSelectedData] = useState<Product | null>();
   
   const handleDelete = useCallback(() => {
     if(selectedData){
@@ -110,7 +110,7 @@ export default function MyProductTable(props: MyProductTableProps) {
           </TableHead>
           <TableBody>
           {props.products.length > 0
-            ? props.products.map((product: Products) => (
+            ? props.products.map((product: Product) => (
                   <TableRow key={product._id}>
                     {columns.map((column) => (
                       <TableCell key={column.field} align="left" onClick={() => router.push("/product/" + product._id)} sx={{ cursor: "pointer" }}>

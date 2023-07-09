@@ -8,10 +8,11 @@ import { getData } from "../common/jeuxApi";
 import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import toast from "react-hot-toast";
+import { deleteProduct, getCategories, getProducts } from "@/utils/api";
 
 export default function ProductPage() {
-  const [products, setProducts] = useState<Products[]>([]);
-  const [categories, setCategories] = useState<Categories[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

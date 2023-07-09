@@ -48,3 +48,19 @@ export async function postData(url: string, data: any) {
    
   return res.json();
 }
+
+export async function putData(url: string, data: any) {
+  const res = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to update data');
+  }
+
+  return res.json();
+}
