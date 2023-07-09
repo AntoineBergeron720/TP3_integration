@@ -1,29 +1,46 @@
 "use client";
 
-import MyProductTable from "@/components/molecules/myProductArray/myProductTable";
-import { Box } from "@mui/material";
-import { getCategories } from "@/utils/api";
-import { Category } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { Box, Container, Typography } from "@mui/material";
+import { deleteData, getData } from "../common/jeuxApi";
+import { useEffect, useState } from "react";
 import { Categories } from "@/types/modules";
+import MyPageTitle from "@/components/molecules/title/my-page-title";
+import MyCategoryTable from "@/components/molecules/myCategoryTable/myCategoryTable";
 
-export default async function CategoryPage() {
+export default function CategoryPage() {
+  const [categories, setCategories] = useState<Categories[]>([]);
 
-  const [categories, setCategories] = useState<Categories[]>([])
-  
   useEffect(() => {
-    const data = getCategories()
-    data.then((res) => {
-      setCategories(res)
-      console.log(res)
-    })
-    
-  }, [categories])
-  
-  
+    if (categories.length === 0) getCategories();
+  }, [categories]);
+
+  function getCategories() {
+    getData("https://api-tp3-integration.onrender.com/categories")
+      .then((data) => {
+        setCategories(data.categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function deleteCategory(id: string) {
+    deleteData(`https://api-tp3-integration.onrender.com/categories/${id}`)
+      .then(() => {
+        getCategories();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
-    <Box>
-      
-    </Box>
+    <Container>
+      <MyPageTitle title="Catégories" />
+      <MyCategoryTable
+        categories={categories}
+        deleteCategoryCallBack={deleteCategory}
+      />
+    </Container>
   );
 }
