@@ -10,15 +10,22 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Box,
+  CircularProgress
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useRouter } from "next/navigation";
 import { Section } from "../section/section";
+import toast from "react-hot-toast";
+import { MyConfirmModal } from "@/components/molecules/myConfirmModal/myConfirmModal"
+import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 
 interface MyCategoryTableProps {
+  loading?: boolean;
   categories: Categories[];
+  setCategories: (categories: Categories[]) => void;
   deleteCategoryCallBack: (id: string) => void;
 }
 
@@ -28,9 +35,40 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
 
   const router = useRouter();
 
+  const [show, setShow] = useState(false);
+
+  const [selectedData, setSelectedData] = useState<Categories | null>();
+  
+  const handleDelete = useCallback(() => {
+    if(selectedData){
+
+      props.deleteCategoryCallBack(selectedData._id)
+
+      props.setCategories( 
+        props.categories.filter(
+          (cat) => {
+            
+              return cat._id != selectedData._id
+            }
+          
+        )
+      );
+
+      toast.success("Catégorie supprimée");
+   }
+
+    setShow(false);
+  }, [props, selectedData])
+
+  const handleCancel = useCallback(() => {
+    setShow(false);
+    setSelectedData(null)
+  }, [])
+
+
   return (
     <Section>
-      <TableContainer>
+      <TableContainer style={{ marginBottom: '100px' }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -68,8 +106,9 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
               </TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
-            {props.categories.length > 0 ? (
+            {props.categories && props.categories.length > 0 ? (
               props.categories.map((category: Categories) => (
                 <TableRow key={category._id}>
                   <TableCell align="left">
@@ -80,25 +119,48 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
                   <TableCell align="center">
                     <Button
                       sx={{ color: "black" }}
-                      onClick={() => props.deleteCategoryCallBack(category._id)}
+                      onClick={() => {
+                        setShow(true)
+                        setSelectedData(category)
+                      }}
                     >
                       <DeleteForeverIcon />
                     </Button>
                   </TableCell>
+
                 </TableRow>
+
               ))
             ) : (
+
               <TableRow>
-                <TableCell align="left">
-                  <Typography sx={{ fontSize: "1.25em" }}>
-                    Aucune catégorie
-                  </Typography>
+                <TableCell colSpan={5} align="center">
+                  {
+                    !props.loading &&
+
+                    <Typography sx={{ fontSize: "1.25em" }}>
+                      Aucune catégorie
+                    </Typography>
+
+                  }
+                  {
+                    props.loading && props.loading == true &&
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <CircularProgress />
+                    </Box>
+                  }
                 </TableCell>
+
               </TableRow>
             )}
           </TableBody>
         </Table>
+
+
       </TableContainer>
+
+      <MyConfirmModal show={show} setShow={setShow} title="Attention !" message="Êtes-vous certain(e) de vouloir supprimer cette catégorie?" onCancel={handleCancel} onDelete={handleDelete} />
+
     </Section>
   );
 }

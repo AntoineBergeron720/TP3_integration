@@ -2,13 +2,10 @@
 
 import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyFormCategory from "@/components/molecules/myFormCategory/myFormCategory";
+import { MyFormCreateProduct } from "@/components/molecules/myFormProduct/myFormProduct";
 import { Box, Container } from "@mui/material";
-import { useTranslations } from "next-intl";
 
-export default function EditCategory() {
-  const t = useTranslations();
-
+export default function AddProduct() {
   return (
     <Container
       sx={{
@@ -21,10 +18,10 @@ export default function EditCategory() {
       maxWidth="sm"
     >
       <Box sx={{ mb: 10 }}>
-        <MyPageTitle title={t("categoryModified.page")} />
+        <MyPageTitle title="Ajouter un produit" />
       </Box>
       <Box>
-        <MyFormCategory name="test" />
+        <MyFormCreateProduct />
       </Box>
     </Container>
   );

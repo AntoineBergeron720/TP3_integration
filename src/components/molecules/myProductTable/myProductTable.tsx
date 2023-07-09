@@ -9,17 +9,25 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Box,
+  CircularProgress
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useRouter } from "next/navigation";
 import { Categories, Products } from "@/types/modules";
 import { Section } from "../section/section";
+import { useState, useCallback } from "react";
+import toast from "react-hot-toast";
+import { MyConfirmModal } from "@/components/molecules/myConfirmModal/myConfirmModal"
 import { useTranslations } from "next-intl";
 
 interface MyProductTableProps {
+  loading?: boolean;
   products: Products[];
   categories: Categories[];
+  setProducts: (products: Products[]) => void;
+  deleteProductCallBack: (id: string) => void;
 }
 
 export default function MyProductTable(props: MyProductTableProps) {
@@ -33,6 +41,35 @@ export default function MyProductTable(props: MyProductTableProps) {
 
   const router = useRouter();
 
+  const [show, setShow] = useState(false);
+
+  const [selectedData, setSelectedData] = useState<Products | null>();
+  
+  const handleDelete = useCallback(() => {
+    if(selectedData){
+
+      props.deleteProductCallBack(selectedData._id)
+
+      props.setProducts( 
+        props.products.filter(
+          (prod) => {
+              return prod._id != selectedData._id
+            }
+          
+        )
+      );
+
+      toast.success("Produit supprimé");
+   }
+
+    setShow(false);
+  }, [props, selectedData])
+
+  const handleCancel = useCallback(() => {
+    setShow(false);
+    setSelectedData(null)
+  }, [])
+
   props.products.forEach(product => {
     props.categories.forEach(category => {
       if (product.categoryId == category._id) {
@@ -42,8 +79,8 @@ export default function MyProductTable(props: MyProductTableProps) {
   });
 
   return (
-    <Section>
-      <TableContainer>
+    <Section >
+      <TableContainer style={{marginBottom: '100px'}}>
         <Table>
           <TableHead>
             <TableRow>
@@ -87,7 +124,10 @@ export default function MyProductTable(props: MyProductTableProps) {
                     <TableCell align="center">
                       <Button
                         sx={{ color: "black" }}
-                        action={null} // change to the function that gonna delete the product
+                        onClick={() => {
+                          setShow(true);
+                          setSelectedData(product);
+                        }}
                       >
                         <DeleteForeverIcon />
                       </Button>
@@ -96,15 +136,26 @@ export default function MyProductTable(props: MyProductTableProps) {
                 ))
               : <TableRow>
                   <TableCell colSpan={5} align="center">
-                    <Typography sx={{ fontSize: "1.5em", color: "black" }}>
-                      Aucun produit
-                    </Typography>
+                    {
+                      !props.loading && 
+                      <Typography sx={{ fontSize: "1.5em", color: "black" }}>
+                        Aucun produit
+                      </Typography>
+                    }
+                    
+                    {
+                      props.loading && props.loading == true && 
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <CircularProgress />
+                      </Box>
+                    }
                   </TableCell>
                 </TableRow>
             }
           </TableBody>
         </Table>
       </TableContainer>
+      <MyConfirmModal show={show} setShow={setShow} title="Attention !" message="Êtes-vous certain(e) de vouloir supprimer ce produit?" onCancel={handleCancel} onDelete={handleDelete} />
     </Section>
   );
 }
