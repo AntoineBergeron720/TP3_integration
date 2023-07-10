@@ -52,6 +52,22 @@ export async function postData(url: string, data: any) {
   return res.json();
 }
 
+export async function putData(url: string, data: any) {
+    const res = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json'
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to update data');
+    }
+
+    return res.json();
+}
+
 export async function getCategories(){
     return getData(url_base + "/categories")
     .then((data) => data)
@@ -73,7 +89,17 @@ export async function createCategory(data: any){
       .then((result) => result
       )
       .catch((error) => {
-        console.error(error);
+        throw error;
+      });
+
+}
+
+export async function updateCategory(data: any, id:string){
+    putData(url_base + "/categories/"+id, data)
+      .then((result) => result
+      )
+      .catch((error) => {
+        throw error;
       });
 
 }
