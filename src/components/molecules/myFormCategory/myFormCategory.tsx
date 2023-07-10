@@ -1,15 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { createCategory, getCategoryById, updateCategory } from "@/utils/api";
-import { putData } from "@/utils/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Categories } from "@/types/modules";
@@ -35,12 +27,6 @@ export function MyFormCategory(props: MyFormCategoryProps) {
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
 
-  //useEffect(() => {
-  //  if (!categoryData) {
-
-  //  }
-  //}, [categoryData]);
-
   function onSubmit(data: MyFormCategoryProps) {
     createCategory(data)
       .then((result) => {
@@ -61,7 +47,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
   }
 
   function handleCancel() {
-    reset(); 
+    reset();
   }
 
   return (
@@ -75,7 +61,6 @@ export function MyFormCategory(props: MyFormCategoryProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
-              //inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}
               helperText={errors.name?.message}
               required
@@ -118,6 +103,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
 
 interface EditCategoryPageProps {
   categoryId: string;
+  name: string;
 }
 
 export function MyFormEditCategory(props: EditCategoryPageProps) {
@@ -152,9 +138,9 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
     setValue,
   } = useForm<EditCategoryPageProps>({ resolver: yupResolver(schema) });
   const [message, setMessage] = useState("");
-  const categoryNameRef = useRef(null);
+  //const categoryNameRef = useRef(null);
 
-  function onSubmit(data: MyFormCategoryProps) {
+  function onSubmit(data: EditCategoryPageProps) {
     updateCategory(data, props.categoryId)
       .then((result) => {
         toast.success("La catégorie à été modifiée avec succès!");
@@ -190,30 +176,11 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
-              //inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}
               helperText={errors.name?.message}
               required
               onClick={clearMessage}
             />
-            {message && (
-              <Box
-                mt={2}
-                p={2}
-                borderRadius={2}
-                bgcolor={
-                  message === "Error"
-                    ? "#FF0000"
-                    : message === "Success"
-                    ? "#32CD32"
-                    : "#32CD32"
-                }
-                color="black"
-                mb={2}
-              >
-                <Typography variant="body1">{message}</Typography>
-              </Box>
-            )}
           </Grid>
           <Grid
             item
