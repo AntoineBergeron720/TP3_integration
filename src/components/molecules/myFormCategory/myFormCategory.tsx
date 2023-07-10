@@ -1,44 +1,49 @@
-import React, { useRef, useState } from "react";
-import { Box, Grid, TextField } from "@mui/material";
-import MyButtonCancel from "@/components/atoms/button/my-button-cancel";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
-import MyButtonSave from "@/components/atoms/button/my-button-save";
-import { createCategory } from "@/utils/api";
+import { createCategory, getCategoryById, updateCategory } from "@/utils/api";
+import {  putData } from "@/utils/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Categories } from "@/types/modules";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 const schema = yup
   .object({
-    name: yup.string().required(),
+    name: yup.string().max(50).required(),
   })
   .required();
 //type FormData = yup.InferType<typeof schema>;
 
 interface MyFormCategoryProps {
-  name?: string | null;
+  name: string;
 }
 
-export default function MyFormCategory(props: MyFormCategoryProps) {
+export function MyFormCategory(props: MyFormCategoryProps) {
   const {
     handleSubmit,
     register,
     formState: { errors, isValid },
+    reset,
   } = useForm<MyFormCategoryProps>({ resolver: yupResolver(schema) });
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
-  const router = useRouter();
 
   function onSubmit(data: MyFormCategoryProps) {
     createCategory(data).then((result) => {
       setMessage("")
-      toast.success('Catégorie ajoutée!')
+      toast.success('La catégorie a été ajoutée avec succès !')
       if(categoryNameRef && categoryNameRef.current){
-        categoryNameRef.current.value = ""
-        router.push('/category')
+        reset();
       }
-
+  
     })
     .catch((error) => {
       console.error(error);
@@ -47,9 +52,16 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
       
   }
 
+  function clearMessage() {
+    setMessage("");
+  }
+
+  function handleCancel() {
+    reset(); // Clear the form values
+  }
+
   return (
     <Box>
-      {message && <p>{message}</p>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container rowGap={3} columnGap={2}>
           <Grid item xs={12}>
@@ -59,12 +71,30 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
-              defaultValue={props.name}
               inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}
               helperText={errors.name?.message}
               required
+              onClick={clearMessage}
             />
+            {message && (
+              <Box
+                mt={2}
+                p={2}
+                borderRadius={2}
+                bgcolor={
+                  message === "Error"
+                    ? "#FF0000"
+                    : message === "Success"
+                    ? "#32CD32"
+                    : "#32CD32"
+                }
+                color="black"
+                mb={2}
+              >
+                <Typography variant="body1">{message}</Typography>
+              </Box>
+            )}
           </Grid>
           <Grid
             item
@@ -75,8 +105,149 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
               gap: 2,
             }}
           >
-            <MyButtonCancel />
-            <MyButtonSave />
+            <Button
+              type="button"
+              variant="outlined"
+              sx={{ border: "2px solid #007FFF" }}
+              disabled={!isValid}
+              onClick={handleCancel}
+            >
+              Annuler
+            </Button>
+
+            <Button
+              variant="contained"
+              //onClick={() => router.push('/category')}
+              sx={{ border: "2px solid #007FFF" }}
+              type="submit"
+              disabled={!isValid}
+            >
+              Enregistrer
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </Box>
+  );
+}
+
+interface EditCategoryPageProps {
+  categoryId: string;
+}
+
+export function MyFormEditCategory(props: EditCategoryPageProps) {
+  const [categoryData, setCategoryData] = useState<Categories>();
+
+  useEffect(() => {
+    if (!categoryData) {
+      fetchCategory();
+    }
+  }, [categoryData]);
+
+  function fetchCategory() {
+    getCategoryById(props.categoryId)
+      .then((category: Categories) => {
+        console.log(category);
+        setCategoryData(category);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isValid },
+    reset,
+  } = useForm<MyFormCategoryProps>({ resolver: yupResolver(schema) });
+  const [message, setMessage] = useState("");
+  const categoryNameRef = useRef(null);
+
+  function onSubmit(data: MyFormCategoryProps) {
+    updateCategory(data, props.categoryId)
+      .then((result) => {
+       
+        toast.success("La catégorie à été modifiée avec succès!")
+        reset();
+      })
+      .catch((error) => {
+        setMessage("Il y a une erreur.");
+      });
+  }
+
+  function clearMessage() {
+    setMessage("");
+  }
+
+  function handleCancel() {
+    reset(); // Clear the form values
+  }
+
+  return (
+    <Box>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container rowGap={3} columnGap={2}>
+          <Grid item xs={12}>
+            <TextField
+              id="name"
+              label="Category Name"
+              variant="outlined"
+              fullWidth
+              {...register("name")}
+              inputProps={{ ref: categoryNameRef }}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+              required
+              onClick={clearMessage}
+            />
+            {message && (
+              <Box
+                mt={2}
+                p={2}
+                borderRadius={2}
+                bgcolor={
+                  message === "Error"
+                    ? "#FF0000"
+                    : message === "Success"
+                    ? "#32CD32"
+                    : "#32CD32"
+                }
+                color="black"
+                mb={2}
+              >
+                <Typography variant="body1">{message}</Typography>
+              </Box>
+            )}
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 2,
+            }}
+          >
+            <Button
+              type="button"
+              variant="outlined"
+              sx={{ border: "2px solid #007FFF" }}
+              disabled={!isValid}
+              onClick={handleCancel}
+            >
+              Annuler
+            </Button>
+
+            <Button
+              variant="contained"
+              //onClick={() => router.push('/category')}
+              sx={{ border: "2px solid #007FFF" }}
+              type="submit"
+              disabled={!isValid}
+            >
+              Enregistrer
+            </Button>
           </Grid>
         </Grid>
       </form>
