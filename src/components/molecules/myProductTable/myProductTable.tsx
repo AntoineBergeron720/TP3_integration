@@ -29,7 +29,7 @@ interface MyProductTableProps {
   deleteProductCallBack: (id: string) => void;
 }
 
-export default function MyProductTable(props: MyProductTableProps) {
+export function MyProductTable(props: MyProductTableProps) {
   const columns = [
     { field: "title", headerName: "Produit" },
     { field: "description", headerName: "Description"},

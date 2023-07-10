@@ -1,6 +1,6 @@
 "use client";
 
-import MyProductTable from "@/components/molecules/myProductTable/myProductTable";
+import {MyProductTable} from "@/components/molecules/myProductTable/myProductTable";
 import { Box } from "@mui/material";
 import { Categories } from "@/types/modules";
 import { Products } from "@/types/modules";

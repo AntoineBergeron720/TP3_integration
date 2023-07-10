@@ -28,7 +28,7 @@ interface MyCategoryTableProps {
   deleteCategoryCallBack: (id: string) => void;
 }
 
-export default function MyCategoryTable(props: MyCategoryTableProps) {
+export function MyCategoryTable(props: MyCategoryTableProps) {
   const columns = [{ field: "name", headerName: "Nom" }];
 
   const router = useRouter();
@@ -109,7 +109,7 @@ export default function MyCategoryTable(props: MyCategoryTableProps) {
             {props.categories && props.categories.length > 0 ? (
               props.categories.map((category: Categories) => (
                 <TableRow key={category._id}>
-                  <TableCell align="left">
+                  <TableCell align="left"  onClick={() => router.push("/category/" + category._id)} sx={{ cursor: "pointer" }}>
                     <Typography sx={{ fontSize: "1.25em" }}>
                       {category.name}
                     </Typography>

@@ -31,12 +31,51 @@ export async function deleteData(url: string) {
     });
 }
 
+
+export async function postData(url: string, data: any) {
+    const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+   
+    // Recommendation: handle errors
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data');
+    }
+   
+  return res.json();
+}
+
 export async function getCategories(){
     return getData(url_base + "/categories")
     .then((data) => data)
     .catch((error) => {
         throw error;
     });   
+}
+
+export async function getCategoryById(id: string){
+    return getData(url_base + "/categories/"+ id)
+    .then((data) => data)
+    .catch((error) => {
+        throw error;
+    });
+}
+
+export async function createCategory(data: any){
+    postData(url_base + "/categories/", data)
+      .then((result) => result
+      )
+      .catch((error) => {
+        console.error(error);
+      });
+
 }
 
 export async function deleteCategory(id: string){
