@@ -20,6 +20,7 @@ export default function Home() {
           fontFamily: "roboto",
           marginBottom: "20px",
           fontWeight: "400",
+          color: '#333'
         }}>
           {t('home.project-description-text')}</Typography>
         <BasicTable />
