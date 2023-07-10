@@ -138,7 +138,6 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
   const [categoryData, setCategoryData] = useState<Categories>();
   const [initialName, setInitialName] = useState<string | undefined>("");
 
-
   useEffect(() => {
     if (!categoryData) {
       fetchCategory();
@@ -150,7 +149,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
       .then((category: Categories) => {
         console.log(category);
         setCategoryData(category);
-        setInitialName(category.name); 
+        setInitialName(category.name);
         setValue("name", category.name);
       })
       .catch((err: any) => {
@@ -191,7 +190,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
   }
 
   function handleCancel() {
-    reset(); // Clear the form values
+    reset();
   }
 
   return (
@@ -200,8 +199,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
         <Grid container rowGap={3} columnGap={2}>
           <Grid item xs={12}>
             <TextField
-              label=""
-              defaultValue={props.categoryId}
+              label="Category Name"
               id="name"
               variant="outlined"
               fullWidth
