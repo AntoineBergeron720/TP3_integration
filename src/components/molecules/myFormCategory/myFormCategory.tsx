@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { createCategory, getCategoryById, updateCategory } from "@/utils/api";
-import {  putData } from "@/utils/api";
+import { putData } from "@/utils/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Categories } from "@/types/modules";
@@ -37,19 +37,18 @@ export function MyFormCategory(props: MyFormCategoryProps) {
   const categoryNameRef = useRef(null);
 
   function onSubmit(data: MyFormCategoryProps) {
-    createCategory(data).then((result) => {
-      setMessage("")
-      toast.success('La catégorie a été ajoutée avec succès !')
-      if(categoryNameRef && categoryNameRef.current){
-        reset();
-      }
-  
-    })
-    .catch((error) => {
-      console.error(error);
-      setMessage("Error");
-    });
-      
+    createCategory(data)
+      .then((result) => {
+        setMessage("");
+        toast.success("La catégorie a été ajoutée avec succès !");
+        if (categoryNameRef && categoryNameRef.current) {
+          reset();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setMessage("Error");
+      });
   }
 
   function clearMessage() {
@@ -137,6 +136,8 @@ interface EditCategoryPageProps {
 
 export function MyFormEditCategory(props: EditCategoryPageProps) {
   const [categoryData, setCategoryData] = useState<Categories>();
+  const [initialName, setInitialName] = useState<string | undefined>("");
+
 
   useEffect(() => {
     if (!categoryData) {
@@ -149,6 +150,8 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
       .then((category: Categories) => {
         console.log(category);
         setCategoryData(category);
+        setInitialName(category.name); 
+        setValue("name", category.name);
       })
       .catch((err: any) => {
         console.log(err);
@@ -159,7 +162,9 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
     handleSubmit,
     register,
     formState: { errors, isValid },
+    watch,
     reset,
+    setValue,
   } = useForm<MyFormCategoryProps>({ resolver: yupResolver(schema) });
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
@@ -167,14 +172,19 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
   function onSubmit(data: MyFormCategoryProps) {
     updateCategory(data, props.categoryId)
       .then((result) => {
-       
-        toast.success("La catégorie à été modifiée avec succès!")
+        toast.success("La catégorie à été modifiée avec succès!");
         reset();
       })
       .catch((error) => {
         setMessage("Il y a une erreur.");
       });
   }
+
+  useEffect(() => {
+    if (categoryData && categoryData.category) {
+      setValue("name", categoryData.category.name);
+    }
+  }, [categoryData, setValue]);
 
   function clearMessage() {
     setMessage("");
@@ -190,8 +200,9 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
         <Grid container rowGap={3} columnGap={2}>
           <Grid item xs={12}>
             <TextField
+              label=""
+              defaultValue={props.categoryId}
               id="name"
-              label="Category Name"
               variant="outlined"
               fullWidth
               {...register("name")}
@@ -241,10 +252,10 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
 
             <Button
               variant="contained"
-              //onClick={() => router.push('/category')}
+              //onClick={() =>
               sx={{ border: "2px solid #007FFF" }}
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || watch("name") === initialName}
             >
               Enregistrer
             </Button>
