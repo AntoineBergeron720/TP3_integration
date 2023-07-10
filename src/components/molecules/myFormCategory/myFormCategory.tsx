@@ -36,6 +36,12 @@ export function MyFormCategory(props: MyFormCategoryProps) {
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
 
+  //useEffect(() => {
+  //  if (!categoryData) {
+
+  //  }
+  //}, [categoryData]);
+
   function onSubmit(data: MyFormCategoryProps) {
     createCategory(data)
       .then((result) => {
