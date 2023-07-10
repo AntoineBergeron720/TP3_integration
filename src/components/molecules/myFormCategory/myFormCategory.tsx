@@ -20,7 +20,6 @@ const schema = yup
     name: yup.string().max(50).required(),
   })
   .required();
-//type FormData = yup.InferType<typeof schema>;
 
 interface MyFormCategoryProps {
   name: string;
@@ -62,7 +61,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
   }
 
   function handleCancel() {
-    reset(); // Clear the form values
+    reset(); 
   }
 
   return (
@@ -76,30 +75,12 @@ export function MyFormCategory(props: MyFormCategoryProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
-              inputProps={{ ref: categoryNameRef }}
+              //inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}
               helperText={errors.name?.message}
               required
               onClick={clearMessage}
             />
-            {message && (
-              <Box
-                mt={2}
-                p={2}
-                borderRadius={2}
-                bgcolor={
-                  message === "Error"
-                    ? "#FF0000"
-                    : message === "Success"
-                    ? "#32CD32"
-                    : "#32CD32"
-                }
-                color="black"
-                mb={2}
-              >
-                <Typography variant="body1">{message}</Typography>
-              </Box>
-            )}
           </Grid>
           <Grid
             item
@@ -122,7 +103,6 @@ export function MyFormCategory(props: MyFormCategoryProps) {
 
             <Button
               variant="contained"
-              //onClick={() => router.push('/category')}
               sx={{ border: "2px solid #007FFF" }}
               type="submit"
               disabled={!isValid}
@@ -170,7 +150,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
     watch,
     reset,
     setValue,
-  } = useForm<MyFormCategoryProps>({ resolver: yupResolver(schema) });
+  } = useForm<EditCategoryPageProps>({ resolver: yupResolver(schema) });
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
 
@@ -210,7 +190,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
-              inputProps={{ ref: categoryNameRef }}
+              //inputProps={{ ref: categoryNameRef }}
               error={!!errors.name}
               helperText={errors.name?.message}
               required
