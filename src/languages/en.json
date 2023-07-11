@@ -24,6 +24,9 @@
 
   },
   "products": {
-    "page-title": "These are my products"
+    "page-title": "These are my products",
+    "add-product": "Add a product",
+    "modifiy-product": "Modify a product",
+    "product-not-found": "Product not found, please try again later."
   }
 }

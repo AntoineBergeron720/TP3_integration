@@ -4,8 +4,11 @@ import React from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import { MyFormCreateProduct } from "@/components/molecules/myFormProduct/myFormProduct";
 import { Box, Container } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function AddProduct() {
+  const t = useTranslations("products");
+
   return (
     <Container
       sx={{
@@ -18,7 +21,7 @@ export default function AddProduct() {
       maxWidth="sm"
     >
       <Box sx={{ mb: 10 }}>
-        <MyPageTitle title="Ajouter un produit" />
+        <MyPageTitle title={t("add-product")} />
       </Box>
       <Box>
         <MyFormCreateProduct />

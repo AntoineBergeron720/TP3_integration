@@ -24,6 +24,9 @@
 
   },
   "products": {
-    "page-title": "Voici mes produits"
+    "page-title": "Voici mes produits",
+    "add-product": "Ajouter un produit",
+    "modifiy-product": "Modifier un produit",
+    "product-not-found": "Produit introuvable, veuiller réessayer plus tard."
   }
 }
