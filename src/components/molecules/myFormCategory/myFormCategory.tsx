@@ -13,8 +13,6 @@ const schema = yup
     name: yup.string().max(50).required(),
   })
   .required();
- 
-  
 
 interface MyFormCategoryProps {
   name: string;
@@ -39,7 +37,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
         if (categoryNameRef && categoryNameRef.current) {
           reset();
         }
-      )
+      })
       .catch((error) => {
         console.error(error);
         setMessage("Error");
@@ -192,15 +190,15 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               gap: 2,
             }}
           >
-            <a href={"/category/"+props.categoryId}>
-            <Button
-              type="button"
-              variant="outlined"
-              sx={{ border: "2px solid #007FFF" }}
-              disabled={!isValid}
-            >
-              {t("common.cancel-btn")}
-            </Button>
+            <a href={"/category/" + props.categoryId}>
+              <Button
+                type="button"
+                variant="outlined"
+                sx={{ border: "2px solid #007FFF" }}
+                disabled={!isValid}
+              >
+                {t("common.cancel-btn")}
+              </Button>
             </a>
 
             <Button
