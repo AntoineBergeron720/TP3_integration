@@ -1,0 +1,51 @@
+{
+  "common": {
+    "home": "ACCUEIL",
+    "category": "CATÉGORIES",
+    "product": "PRODUITS",
+    "names": "Noms",
+    "role": "Rôle",
+    "github": "Github",
+    "save-btn": "Enregistrer",
+    "cancel-btn": "Annuler",
+    "delete-btn": "supprimer"
+  },
+  "home": {
+    "page-title": "TP3-Intégration de l'API",
+    "project-description-title": "Description du projet",
+    "project-description-text": "Notre mandat est de créer une interface d’administration simple en utilisant les composantes de Material UI et Next.js. Ce panneau d’administration est lié a l’API conçue dans le cadre du cours “Programmation 1” et a été créé afin qu’il soit simple et facile à employer. Notez ci-bas les membres de l’équipe qui ont permis la réalisation de ce projet ainsi que leur rôle dans l’équipe et leur compte Github. Outre la présente page d’accueil, vous trouverez sur ce site un module qui traite des différents produits offerts par une entreprise de jouets, ainsi que leurs catégories."
+  },
+  "categories": {
+    "page-title": "Liste des catégories",
+    "add-category": "Ajouter une catégorie",
+    "name": "Nom",
+    "add-btn": "Ajouter une catégorie",
+    "message": "Êtes-vous certain(e) de vouloir supprimer cette catégorie?",
+    "Category-Name": "Nom de la catégorie",
+    "edit-category": "Modifier une catégorie",
+    "found-category": "Aucune catégorie trouvée.",
+    "toast-error": "Erreur lors de la récupération des catégories",
+    "toast-add-success":"La catégorie a été ajoutée avec succès !",
+    "toast-edit-success": "La catégorie à été modifiée avec succès!",
+    "msg-error": "Il y a une erreur.",
+    "label-name":"Nom de la catégorie",
+    "warning": "Attention !",
+    "warning-message": "Êtes-vous certain(e) de vouloir supprimer cette catégorie?",
+    "toast-delete-success": "Catégorie supprimée"
+  },
+  "products": {
+    "page-title": "Liste des produits",
+    "add-product": "Ajouter un produit",
+    "no-products": "Aucun produits",
+    "modifiy-product": "Modifier un produit",
+    "product-not-found": "Produit introuvable, veuiller réessayer plus tard.",
+    "loading-failed": "Erreur lors du chargement des produits",
+    "title": "Nom",
+    "description": "Description",
+    "price": "Prix",
+    "category": "Catégorie",
+    "product-deleted": "Produit supprimé",
+    "warning": "Attention !",
+    "warning-message": "Êtes-vous certain(e) de vouloir supprimer ce produit?"
+  }
+}
