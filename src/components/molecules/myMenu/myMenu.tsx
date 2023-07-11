@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter} from 'next/navigation';
-import { useTranslations } from "next-intl";
+import { useTranslations } from 'next-intl';
 
 interface MenuItem {
   label: string;
