@@ -38,3 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 https://api-tp3-integration.onrender.com
 
 https://github.com/GreygorySmirnov/API_TP_3_Integration.git
+
+## Hosting server
+
+https://tp-3-integration.vercel.app/
