@@ -1,8 +1,12 @@
-import { Grid, TextField, FormControl, InputLabel, MenuItem, Button } from "@mui/material";
-import { useState, useEffect } from 'react';
+import { Grid, TextField, FormControl, InputLabel, MenuItem } from "@mui/material";
+import MyButtonCancel from "../../atoms/button/my-button-cancel";
+import MyButtonSave from "../../atoms/button/my-button-save";
+import { useState, useEffect, useCallback } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { getCategories } from '@/utils/api';
+import { getCategories, createProduct, updateProduct } from '@/utils/api';
 import toast from "react-hot-toast";
+import {Button} from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 export function MyFormCreateProduct() {
@@ -20,10 +24,62 @@ export function MyFormCreateProduct() {
     }, [])
 
     const [category, setCategory] = useState('');
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [price, setPrice] = useState("")
 
     const handleChange = (event: SelectChangeEvent) => {
         setCategory(event.target.value as string);
     };
+
+    const [errors, setErrors] = useState<string[]>([])
+    const isValid = useCallback(() => {
+        let err = []
+ 
+        if(title.trim() == ""){
+            err.push("Titre")
+
+        }
+        if (description.trim() == ""){
+            err.push("Description")
+        }        
+        if (category.trim() == ""){
+            err.push("Catégorie")
+        }
+        if (isNaN(parseInt(price))){
+            err.push("Prix")
+           
+        }
+        if (err.length > 0) {
+            setErrors(err)
+            return false
+        }
+
+        return true;
+    }, [title, description, price, category, setErrors])
+
+    const router = useRouter();
+
+    const formSubmit = useCallback(()=> {
+
+        if (isValid()){
+            createProduct({title, price, description, categoryId: category})
+            .then((res)=> {
+                toast.success('Le produit a été ajouté avec succès!')
+                router.push('/product')
+            }).catch((err) => {
+                toast.error('Erreur: Impossible de créer le produit.')
+            })
+        }
+        else {
+            //toast.error(`Impossible de créer le produit, vérifier les informations suivantes: ${errors.map((err) => {return err + " "})}`   )
+        }
+        
+    },[title, price, description, category, isValid, router])
+
+    useEffect(()=> {
+        if (errors.length > 0) toast.error(`Impossible de créer le produit, vérifier les informations suivantes: ${errors.map((err) => {return err})}`   )
+    }, [errors])
 
     return (
         <Grid container rowGap={3} columnGap={2}>
@@ -33,6 +89,7 @@ export function MyFormCreateProduct() {
                     label={t("title")}
                     variant="outlined"
                     fullWidth
+                    onChange={(e)=> setTitle(e.currentTarget.value)}
                     sx={{
                         "& .MuiOutlinedInput-root": {
                             "& fieldset": {
@@ -46,6 +103,7 @@ export function MyFormCreateProduct() {
                     id="description"
                     label={t("description")}
                     variant="outlined"
+                    onChange={(e)=> setDescription(e.currentTarget.value)}
                     multiline
                     minRows={5}
                     fullWidth
@@ -63,6 +121,7 @@ export function MyFormCreateProduct() {
                     id="prix"
                     label={t("price")}
                     variant="outlined"
+                    onChange={(e)=> setPrice(e.currentTarget.value)}
                     fullWidth
                     sx={{
                         "& .MuiOutlinedInput-root": {
@@ -114,14 +173,17 @@ export function MyFormCreateProduct() {
                     gap: 2,
                 }}
             >
-                <Button />
-                <Button />
+         
+                <Button onClick={formSubmit} disabled={!title || !description || !price || !category} variant="contained" sx={{ border: "2px solid #007FFF", width: '100%' }} type="submit">
+                    Créer
+                </Button>
             </Grid>
         </Grid>
     );
 }
 
 interface MyFormUpdateProductProps {
+    id: string
     titre: string,
     description: string,
     prix: number,
@@ -142,15 +204,66 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
         
     }, [])
 
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(props.category);
 
     const handleChange = (event: SelectChangeEvent) => {
         setCategory(event.target.value as string);
     };
 
-    useEffect(() => {
-        console.log(category)
-    }, [category])
+    const [title, setTitle] = useState(props.titre)
+    const [description, setDescription] = useState(props.description)
+    const [price, setPrice] = useState(props.prix.toString())
+
+    const [errors, setErrors] = useState<string[]>([])
+
+    const isValid = useCallback(() => {
+        let err = []
+ 
+        if(title.trim() == ""){
+            err.push("Titre")
+
+        }
+        if (description.trim() == ""){
+            err.push("Description")
+        }        
+        if (category.trim() == ""){
+            err.push("Catégorie")
+        }
+        if (isNaN(parseInt(price))){
+            err.push("Prix")
+        }
+        if (err.length > 0) {
+            setErrors(err)
+            return false
+        }
+
+        return true;
+    }, [title, description, price, category, setErrors])
+
+    const router = useRouter()
+
+    const reload = useCallback(()=> router.refresh(), [router]);
+
+    const formSubmit = useCallback(()=> {
+
+        if (isValid()){
+            updateProduct(props.id, {title, price, description, categoryId: category})
+            .then((res)=> {
+                toast.success('Le produit a été modifié avec succès!')
+                router.push('/product')
+            }).catch((err) => {
+                toast.error('Erreur: Impossible de créer le produit.')
+            })
+        }
+        else {
+            //toast.error(`Impossible de créer le produit, vérifier les informations suivantes: ${errors.map((err) => {return err + " "})}`   )
+        }
+        
+    },[title, price, description, category, isValid, props.id, router])
+
+    useEffect(()=> {
+        if (errors.length > 0) toast.error(`Impossible de créer le produit, vérifier les informations suivantes: ${errors.map((err) => {return err})}`   )
+    }, [errors])
 
     return (
         <Grid container rowGap={3} columnGap={2}>
@@ -161,6 +274,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                     defaultValue={props.titre}
                     variant="outlined"
                     fullWidth
+                    onChange={e => setTitle(e.currentTarget.value)}
                     sx={{
                         "& .MuiOutlinedInput-root": {
                             "& fieldset": {
@@ -178,6 +292,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                     multiline
                     minRows={5}
                     fullWidth
+                    onChange={e => setDescription(e.currentTarget.value)}
                     sx={{
                         "& .MuiOutlinedInput-root": {
                             "& fieldset": {
@@ -192,6 +307,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                     id="prix"
                     label={t("price")}
                     defaultValue={props.prix}
+                    onChange={e => setPrice(e.currentTarget.value)}
                     variant="outlined"
                     fullWidth
                     sx={{
@@ -224,7 +340,6 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                         defaultValue={props.category}
                         label="Nouvelle catégorie"
                         onChange={handleChange}
-
                     >
                         {
                             categoryList && categoryList.map((cat) => {
@@ -244,8 +359,15 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                     gap: 2,
                 }}
             >
-                <Button />
-                <Button />
+               
+               <Button disabled={!title || !description || !price || !category} onClick={formSubmit} variant="contained" sx={{ border: "2px solid #007FFF", width: '50%' }} type="submit">
+                    Enregistrer
+                </Button>
+                <a style={{width: "50%"}} href={"/product/"+props.id}>
+                    <Button variant="outlined" sx={{ border: "2px solid #007FFF", width: '100%' }} >
+                        Annuler
+                    </Button>
+                </a>
             </Grid>
         </Grid>
     );
