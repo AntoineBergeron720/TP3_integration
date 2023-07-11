@@ -8,9 +8,10 @@ import { useParams } from 'next/navigation'
 import { getProductById } from "@/utils/api";
 import toast from "react-hot-toast";
 import { Products } from "@/types/modules";
+import { useTranslations } from "next-intl";
 
 export default function AddProduct() {
-
+  const t = useTranslations("products");
 
   const params = useParams()
   const [product, setProduct] = useState<Products>();
@@ -19,7 +20,7 @@ export default function AddProduct() {
     getProductById(params.product).then((data) => {
       setProduct(data.product);
     }).catch(() => {
-      toast.error("Produit introuvable, veuiller réessayer plus tard.");
+      toast.error(t("product-not-found"));
     })
   }, [] )
   
@@ -36,7 +37,7 @@ export default function AddProduct() {
       maxWidth="sm"
     >
       <Box sx={{ mb: 10 }}>
-        <MyPageTitle title="Modifier un produit" />
+        <MyPageTitle title={t("modifiy-product")} />
       </Box>
       <Box>
         {

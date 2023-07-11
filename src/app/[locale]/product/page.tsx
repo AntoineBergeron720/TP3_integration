@@ -8,9 +8,10 @@ import { getProducts, getCategories, deleteProduct } from "@/utils/api";
 import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import toast from "react-hot-toast";
-
+import { useTranslations } from "next-intl";
 
 export default function ProductPage() {
+  const t = useTranslations("products");
   const [products, setProducts] = useState<Products[]>([]);
   const [categories, setCategories] = useState<Categories[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,7 +28,7 @@ export default function ProductPage() {
       })
     }).catch((err)=> {
       setLoading(false);
-      toast.error("Erreur lors du chargement des produits");
+      toast.error(t("loading-error"));
     });
     
   }, []);
@@ -35,7 +36,7 @@ export default function ProductPage() {
 
   return (
     <Box sx={{ padding: "10px" }}>
-      <MyPageTitle title="Liste des produits" />
+      <MyPageTitle title={t("page-title")} />
 
       <MyProductTable loading={loading} products={products} categories={categories} setProducts={setProducts} deleteProductCallBack={deleteProduct} />
       

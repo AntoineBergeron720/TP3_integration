@@ -7,6 +7,7 @@ import { Box, Container } from "@mui/material";
 import { Categories } from "@/types/modules";
 import { getCategoryById } from "@/utils/api";
 import { Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 interface EditCategoryPageProps{
   params: {
@@ -15,6 +16,8 @@ interface EditCategoryPageProps{
 }
 
 export default function EditCategory({params}: EditCategoryPageProps) {
+  const t = useTranslations("categories");
+
   const [categoryData, setCategoryData] = useState<Categories>();
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
         maxWidth="sm"
       >
         <Box sx={{ mb: 10 }}>
-          <MyPageTitle title="Modifier une catégorie" />
+          <MyPageTitle title={t("edit-category")} />
         </Box>
         <Box>
           {categoryData ? (
@@ -54,7 +57,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
               <MyFormEditCategory categoryId={params.category} />
             </Box>
           ) : (
-            <Typography> No category found.</Typography>
+            <Typography> {t("found-category")}</Typography>
           )}
         </Box>
       </Container>

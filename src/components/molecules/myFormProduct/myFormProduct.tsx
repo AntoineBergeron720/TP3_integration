@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { getCategories } from '@/utils/api';
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export function MyFormCreateProduct() {
-
+    const t = useTranslations("products");
     const [categoryList, setCategoryList] = useState<any[]>([])
 
     useEffect(() => {
@@ -13,7 +14,7 @@ export function MyFormCreateProduct() {
         getCategories().then((data)=> {
             setCategoryList(data.categories) 
         }).catch(() => {
-            toast.error("Erreur lors de la récupération des catégories");
+            toast.error(t("loading-failed"));
         })
 
     }, [])
@@ -29,7 +30,7 @@ export function MyFormCreateProduct() {
             <Grid item xs={12}>
                 <TextField
                     id="titre"
-                    label="Titre"
+                    label={t("title")}
                     variant="outlined"
                     fullWidth
                     sx={{
@@ -43,7 +44,7 @@ export function MyFormCreateProduct() {
                 />
                 <TextField
                     id="description"
-                    label="Description"
+                    label={t("description")}
                     variant="outlined"
                     multiline
                     minRows={5}
@@ -60,7 +61,7 @@ export function MyFormCreateProduct() {
                 />
                 <TextField
                     id="prix"
-                    label="Prix"
+                    label={t("price")}
                     variant="outlined"
                     fullWidth
                     sx={{
@@ -86,12 +87,12 @@ export function MyFormCreateProduct() {
                         }
                     }
                 >
-                    <InputLabel id="category">Catégorie</InputLabel>
+                    <InputLabel id="category">{t("category")}</InputLabel>
                     <Select
                         labelId="category"
                         id="categorySelect"
                         value={category}
-                        label="Catégorie"
+                        label={t("category")}
                         onChange={handleChange}
 
                     >
@@ -128,6 +129,7 @@ interface MyFormUpdateProductProps {
 }
 
 export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
+    const t = useTranslations("products");
     const [categoryList, setCategoryList] = useState<any[]>([])
 
     useEffect(() => {
@@ -135,7 +137,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
         getCategories().then((data)=> {
             setCategoryList(data.categories) 
         }).catch(() => {
-            toast.error("Erreur lors de la récupération des catégories");
+            toast.error(t("loading-failed"));
         })
         
     }, [])
@@ -155,7 +157,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
             <Grid item xs={12}>
                 <TextField
                     id="titre"
-                    label="Nouveau titre"
+                    label={t("title")}
                     defaultValue={props.titre}
                     variant="outlined"
                     fullWidth
@@ -170,7 +172,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                 />
                 <TextField
                     id="description"
-                    label="Nouvelle description"
+                    label={t("description")}
                     defaultValue={props.description}
                     variant="outlined"
                     multiline
@@ -188,7 +190,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                 />
                 <TextField
                     id="prix"
-                    label="Nouveau prix"
+                    label={t("price")}
                     defaultValue={props.prix}
                     variant="outlined"
                     fullWidth
@@ -215,7 +217,7 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                         }
                     }
                 >
-                    <InputLabel id="category">Catégorie</InputLabel>
+                    <InputLabel id="category">{t("category")}</InputLabel>
                     <Select
                         labelId="category"
                         id="categorySelect"
