@@ -240,6 +240,8 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
 
     const router = useRouter()
 
+    const reload = useCallback(()=> router.refresh(), [router]);
+
     const formSubmit = useCallback(()=> {
 
         if (isValid()){
@@ -359,6 +361,11 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                <Button disabled={!title || !description || !price || !category} onClick={formSubmit} variant="contained" sx={{ border: "2px solid #007FFF", width: '100%' }} type="submit">
                     Enregistrer
                 </Button>
+                <a href={"/product/"+props.id}>
+                    <Button variant="outlined" sx={{ border: "2px solid #007FFF", width: '100%' }} >
+                        Annuler
+                    </Button>
+                </a>
             </Grid>
         </Grid>
     );
