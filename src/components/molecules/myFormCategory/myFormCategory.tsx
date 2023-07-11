@@ -62,7 +62,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
           <Grid item xs={12}>
             <TextField
               id="name"
-              label="Category Name"
+              label={t("categories.label-name")}
               variant="outlined"
               fullWidth
               {...register("name")}
@@ -88,7 +88,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
               disabled={!isValid}
               onClick={handleCancel}
             >
-              Annuler
+              {t("common.cancel-btn")}
             </Button>
 
             <Button
@@ -177,7 +177,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
         <Grid container rowGap={3} columnGap={2}>
           <Grid item xs={12}>
             <TextField
-              label=label-name
+              label={t("categories.label-name")}
               id="name"
               variant="outlined"
               fullWidth
