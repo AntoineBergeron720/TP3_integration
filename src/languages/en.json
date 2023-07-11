@@ -12,7 +12,7 @@
   "home": {
     "page-title": "TP3-Integration of the API",
     "project-description-title": "Project description",
-    "project-description-text": "Our mandate is to create a simple administration interface using the components of Material UI and Next.js. This administration panel is linked to the API designed as part of the course 'Programming 1' and was created to be simple and easy to use. Note above the members of the team who made this project possible as well as their role in the team and their Github account. In addition to this home page, you will find on this site a module that deals with the different products offered by a toy company, as well as their categories."
+    "project-description-text": "Our mandate is to create a simple administration interface using the components of Material UI and Next.js. This administration panel is linked to the API designed as part of the course 'Programming 1' and was created to be simple and easy to use. Note below the members of the team who made this project possible as well as their role in the team and their Github account. In addition to this home page, you will find on this site a module that deals with the different products offered by a toy company, as well as their categories."
   },
   "categories": {
     "page-title": "List of Categories",

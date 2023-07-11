@@ -34,7 +34,7 @@ export default async function RootLayout({
   }
   return (
     <html lang={params.locale}>
-      <body style={{ backgroundColor: 'white' }}>
+      <body style={{ background: 'white' }}>
         <NextIntlClientProvider locale={params.locale} messages={translations}>
           <>
             <MyMenu />
