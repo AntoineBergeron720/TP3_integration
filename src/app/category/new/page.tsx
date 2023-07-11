@@ -19,11 +19,13 @@ export default function AddCategory() {
           flexDirection: "column",
           minWidth: 300,
           mt: 2,
+          mb: 20,
+          '@media(minWidth : 370px)': {mb: 260}
         }}
         fixed
         maxWidth="sm"
       >
-        <Box sx={{ mb: 10 }}>
+        <Box sx={{ mb: 10 }} >
           <MyPageTitle title="Ajouter une catégorie" />
         </Box>
         <Box>
