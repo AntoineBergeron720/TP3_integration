@@ -28,8 +28,10 @@
     "toast-add-success":"The category has been added successfully !",
     "toast-edit-success": "The category successfully has been updated !",
     "msg-error": "There is an error.",
-    "label-name":"Category Name"
-
+    "label-name":"Category Name",
+    "warning": "Warning !",
+    "warning-message": "Are you sure you want to delete this category?",
+    "toast-delete-success": "Category deleted"
   },
   "products": {
     "page-title": "List of Products",

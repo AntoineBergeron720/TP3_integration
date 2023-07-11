@@ -55,7 +55,7 @@ export function MyCategoryTable(props: MyCategoryTableProps) {
         )
       );
 
-      toast.success("Catégorie supprimée");
+      toast.success(t("toast-delete-success"));
    }
 
     setShow(false);
@@ -160,7 +160,7 @@ export function MyCategoryTable(props: MyCategoryTableProps) {
 
       </TableContainer>
 
-      <MyConfirmModal show={show} setShow={setShow} title="Attention !" message="Êtes-vous certain(e) de vouloir supprimer cette catégorie?" onCancel={handleCancel} onDelete={handleDelete} />
+      <MyConfirmModal show={show} setShow={setShow} title={t("warning")} message={t("warning-message")} onCancel={handleCancel} onDelete={handleDelete} />
 
     </Section>
   );
