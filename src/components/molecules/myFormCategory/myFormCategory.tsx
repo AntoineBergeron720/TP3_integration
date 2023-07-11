@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const schema = yup
   .object({
@@ -16,6 +17,7 @@ const schema = yup
   .required();
 //type FormData = yup.InferType<typeof schema>;
 
+const t = useTranslations("categories");
 interface MyFormCategoryProps {
   name?: string | null;
 }
@@ -55,7 +57,7 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
           <Grid item xs={12}>
             <TextField
               id="name"
-              label="Category Name"
+              label={t("Category-Name")}
               variant="outlined"
               fullWidth
               {...register("name")}
