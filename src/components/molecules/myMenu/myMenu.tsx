@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter} from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface MenuItem {
   label: string;
@@ -18,12 +19,13 @@ interface MenuItem {
 }
 
 const pages: MenuItem[] = [
-  { label: 'ACCUEIL', route: '/' },
-  { label: 'CATEGORIES', route: '/category' },
-  { label: 'PRODUITS', route: '/product' },
+  { label: 'home', route: '/' },
+  { label: 'category', route: '/category' },
+  { label: 'product', route: '/product' },
 ];
 
 export default function MyMenu() {
+  const t = useTranslations();
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -39,6 +41,17 @@ export default function MyMenu() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const changeLanguage = (language: string) => {
+    const windowHref = window.location.href
+    const goTo = windowHref.replace(`/${getCurrentLang()}`, `/${language}`)
+    window.location.href = goTo
+  };
+
+  const getCurrentLang = () => {
+    const url = new URL(window.location.href)
+    const tokens = url.pathname.split('/')
+    return tokens.length > 0 ? tokens[1] : ''
+  }
 
   function handleOpenPage(goToRoute: string) {
     return router.push(goToRoute);
@@ -97,7 +110,7 @@ export default function MyMenu() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.label} onClick={(e) => handleOpenPage(page.route)}>
-                  <Typography textAlign="center">{page.label}</Typography>
+                  <Typography textAlign="center">{t(`common.${page.label}`)}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -143,15 +156,23 @@ export default function MyMenu() {
                   '&:hover' : { borderBottomColor: 'white'}
                 }}
               >
-                {page.label}
+                {t(`common.${page.label}`)}
               </Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Box sx={{fontFamily: 'roboto'}}>EN | FR</Box>
+          <Button  variant="contained" color="primary" aria-label="change language"
+              onClick={() => {
+                changeLanguage('en');
+              }}>En</Button>
+              <Button  variant="contained" color="primary" aria-label="change language"
+              onClick={() => {
+                changeLanguage('fr');
+              }}>Fr</Button>   
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+

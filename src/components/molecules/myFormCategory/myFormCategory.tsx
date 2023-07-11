@@ -6,20 +6,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Categories } from "@/types/modules";
 import toast from "react-hot-toast";
-
-
+import { useTranslations } from "next-intl";
 
 const schema = yup
   .object({
     name: yup.string().max(50).required(),
   })
   .required();
+ 
+  
 
 interface MyFormCategoryProps {
   name: string;
 }
 
 export function MyFormCategory(props: MyFormCategoryProps) {
+  const t = useTranslations();
   const {
     handleSubmit,
     register,
@@ -33,7 +35,8 @@ export function MyFormCategory(props: MyFormCategoryProps) {
     createCategory(data)
       .then((result) => {
         setMessage("");
-        toast.success("La catégorie a été ajoutée avec succès !");
+        toast.success(t("categories.toast-add-success"));
+        if (categoryNameRef && categoryNameRef.current) {
           reset();
         }
       )
@@ -58,7 +61,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
           <Grid item xs={12}>
             <TextField
               id="name"
-              label="Category Name"
+              label={t("categories.label-name")}
               variant="outlined"
               fullWidth
               {...register("name")}
@@ -84,7 +87,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
               disabled={!isValid}
               onClick={handleCancel}
             >
-              Annuler
+              {t("common.cancel-btn")}
             </Button>
 
             <Button
@@ -93,7 +96,7 @@ export function MyFormCategory(props: MyFormCategoryProps) {
               type="submit"
               disabled={!isValid}
             >
-              Enregistrer
+              {t("common.save-btn")}
             </Button>
           </Grid>
         </Grid>
@@ -103,11 +106,12 @@ export function MyFormCategory(props: MyFormCategoryProps) {
 }
 
 interface EditCategoryPageProps {
-  categoryId: string;
   name: string;
+  categoryId: string;
 }
 
 export function MyFormEditCategory(props: EditCategoryPageProps) {
+  const t = useTranslations();
   const [categoryData, setCategoryData] = useState<Categories>();
   const [initialName, setInitialName] = useState<string | undefined>("");
 
@@ -144,11 +148,11 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
   function onSubmit(data: EditCategoryPageProps) {
     updateCategory(data, props.categoryId)
       .then((result) => {
-        toast.success("La catégorie à été modifiée avec succès!");
+        toast.success(t("categories.toast-edit-success"));
         reset();
       })
       .catch((error) => {
-        setMessage("Il y a une erreur.");
+        setMessage(t("categories.msg-error"));
       });
   }
 
@@ -168,7 +172,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
         <Grid container rowGap={3} columnGap={2}>
           <Grid item xs={12}>
             <TextField
-              label="Category Name"
+              label={t("categories.label-name")}
               id="name"
               variant="outlined"
               fullWidth
@@ -195,7 +199,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               sx={{ border: "2px solid #007FFF" }}
               disabled={!isValid}
             >
-              Annuler
+              {t("common.cancel-btn")}
             </Button>
             </a>
 
@@ -205,7 +209,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               type="submit"
               disabled={!isValid || watch("name") === initialName}
             >
-              Enregistrer
+              {t("common.save-btn")}
             </Button>
           </Grid>
         </Grid>
