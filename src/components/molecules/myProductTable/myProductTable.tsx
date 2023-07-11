@@ -20,6 +20,7 @@ import { Section } from "../section/section";
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import { MyConfirmModal } from "@/components/molecules/myConfirmModal/myConfirmModal"
+import { useTranslations } from "next-intl";
 
 interface MyProductTableProps {
   loading?: boolean;
@@ -30,11 +31,12 @@ interface MyProductTableProps {
 }
 
 export function MyProductTable(props: MyProductTableProps) {
+  const t = useTranslations("products");
   const columns = [
-    { field: "title", headerName: "Produit" },
-    { field: "description", headerName: "Description"},
-    { field: "categoryId", headerName: "Catégorie" },
-    { field: "price", headerName: "Prix ($)" },
+    { field: "title", headerName: t("title") },
+    { field: "description", headerName: t("description") },
+    { field: "categoryId", headerName: t("category") },
+    { field: "price", headerName: t("price") },
   ];
 
   const router = useRouter();
@@ -57,7 +59,7 @@ export function MyProductTable(props: MyProductTableProps) {
         )
       );
 
-      toast.success("Produit supprimé");
+      toast.success(t("product-deleted"));
    }
 
     setShow(false);
@@ -96,7 +98,7 @@ export function MyProductTable(props: MyProductTableProps) {
                   onClick={() => router.push("/product/new")}
                 >
                   <Typography sx={{ display: "flex", alignContent: "center", fontSize:"1em" }}>
-                    Ajouter
+                    {t("add-product")}
                     <AddBoxIcon
                       sx={{
                         borderRadius: "5px",
@@ -137,7 +139,7 @@ export function MyProductTable(props: MyProductTableProps) {
                     {
                       !props.loading && 
                       <Typography sx={{ fontSize: "1.5em", color: "black" }}>
-                        Aucun produit
+                        {t("no-product")}
                       </Typography>
                     }
                     
@@ -153,7 +155,7 @@ export function MyProductTable(props: MyProductTableProps) {
           </TableBody>
         </Table>
       </TableContainer>
-      <MyConfirmModal show={show} setShow={setShow} title="Attention !" message="Êtes-vous certain(e) de vouloir supprimer ce produit?" onCancel={handleCancel} onDelete={handleDelete} />
+      <MyConfirmModal show={show} setShow={setShow} title={t("warning")} message={t("warning-message")} onCancel={handleCancel} onDelete={handleDelete} />
     </Section>
   );
 }

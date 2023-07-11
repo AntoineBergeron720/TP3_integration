@@ -93,7 +93,17 @@ export async function createCategory(data: any){
       .then((result) => result
       )
       .catch((error) => {
-        console.error(error);
+        throw error;
+      });
+
+}
+
+export async function updateCategory(data: any, id:string){
+    putData(url_base + "/categories/"+id, data)
+      .then((result) => result
+      )
+      .catch((error) => {
+        throw error;
       });
 
 }
