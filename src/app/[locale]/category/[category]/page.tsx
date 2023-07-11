@@ -54,7 +54,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
         <Box>
           {categoryData ? (
             <Box>
-              <MyFormEditCategory categoryId={params.category} />
+              <MyFormEditCategory name={categoryData.name} categoryId={params.category} />
             </Box>
           ) : (
             <Typography> {t("found-category")}</Typography>
