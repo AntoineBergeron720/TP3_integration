@@ -35,7 +35,16 @@
   "products": {
     "page-title": "Voici mes produits",
     "add-product": "Ajouter un produit",
+    "no-products": "Aucun produits",
     "modifiy-product": "Modifier un produit",
-    "product-not-found": "Produit introuvable, veuiller réessayer plus tard."
+    "product-not-found": "Produit introuvable, veuiller réessayer plus tard.",
+    "loading-failed": "Erreur lors du chargement des produits",
+    "title": "Nom",
+    "description": "Description",
+    "price": "Prix",
+    "category": "Catégorie",
+    "product-deleted": "Produit supprimé",
+    "warning": "Attention !",
+    "warning-message": "Êtes-vous certain(e) de vouloir supprimer ce produit?"
   }
 }

@@ -34,7 +34,16 @@
   "products": {
     "page-title": "These are my products",
     "add-product": "Add a product",
+    "no-product": "No products",
     "modifiy-product": "Modify a product",
-    "product-not-found": "Product not found, please try again later."
+    "product-not-found": "Product not found, please try again later.",
+    "loading-failed": "An error has occured while loading the products",
+    "title": "Name",
+    "description": "Description",
+    "price": "Price",
+    "category": "Category",
+    "product-deleted": "Product deleted",
+    "warning": "Warning !",
+    "warning-message": "Are you sure you want to delete this product?"
   }
 }
