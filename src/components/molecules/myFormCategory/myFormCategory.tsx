@@ -7,6 +7,8 @@ import * as yup from "yup";
 import { Categories } from "@/types/modules";
 import toast from "react-hot-toast";
 
+
+
 const schema = yup
   .object({
     name: yup.string().max(50).required(),
@@ -32,10 +34,9 @@ export function MyFormCategory(props: MyFormCategoryProps) {
       .then((result) => {
         setMessage("");
         toast.success("La catégorie a été ajoutée avec succès !");
-        if (categoryNameRef && categoryNameRef.current) {
           reset();
         }
-      })
+      )
       .catch((error) => {
         console.error(error);
         setMessage("Error");
@@ -161,10 +162,6 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
     setMessage("");
   }
 
-  function handleCancel() {
-    reset();
-  }
-
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -191,19 +188,19 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               gap: 2,
             }}
           >
+            <a href={"/category/"+props.categoryId}>
             <Button
               type="button"
               variant="outlined"
               sx={{ border: "2px solid #007FFF" }}
               disabled={!isValid}
-              onClick={handleCancel}
             >
               Annuler
             </Button>
+            </a>
 
             <Button
               variant="contained"
-              //onClick={() =>
               sx={{ border: "2px solid #007FFF" }}
               type="submit"
               disabled={!isValid || watch("name") === initialName}

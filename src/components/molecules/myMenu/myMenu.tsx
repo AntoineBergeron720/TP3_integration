@@ -45,7 +45,7 @@ export default function MyMenu() {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "#007FFF" }} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
