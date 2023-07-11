@@ -103,8 +103,8 @@ export function MyFormCategory(props: MyFormCategoryProps) {
 }
 
 interface EditCategoryPageProps {
-  categoryId: string;
   name: string;
+  categoryId: string;
 }
 
 export function MyFormEditCategory(props: EditCategoryPageProps) {
