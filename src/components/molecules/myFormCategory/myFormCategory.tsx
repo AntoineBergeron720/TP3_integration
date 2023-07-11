@@ -25,7 +25,7 @@ export default function MyFormCategory(props: MyFormCategoryProps) {
     handleSubmit,
     register,
     formState: { errors, isValid },
-  } = useForm<MyFormCategoryProps>({ resolver: yupResolver(schema) });
+  } = useForm<{name:string;}>({ resolver: yupResolver(schema) });
   const [message, setMessage] = useState("");
   const categoryNameRef = useRef(null);
   const router = useRouter();
