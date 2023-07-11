@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { Categories } from "@/types/modules";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 
 
 const schema = yup
@@ -171,7 +170,6 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
   function handleCancel() {
     reset();
   }
-  const router = useRouter()
 
   return (
     <Box>
@@ -212,7 +210,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
 
             <Button
               variant="contained"
-              onClick={() => router.push('/category')}
+              //onClick={() =>
               sx={{ border: "2px solid #007FFF" }}
               type="submit"
               disabled={!isValid}
