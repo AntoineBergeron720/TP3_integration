@@ -24,7 +24,7 @@ export default function CategoryPage() {
     })
     .catch(()=> {
       setLoading(false);
-      toast.error("Erreur lors de la récupération des catégories");
+      toast.error(t("toast-error"));
     });
     
   }, []);

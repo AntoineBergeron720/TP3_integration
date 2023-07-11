@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useTranslations } from "next-intl";
 
 
 const style = {
@@ -29,6 +30,7 @@ interface MyConfirmModalProps {
 }
 
 export function MyConfirmModal(props: MyConfirmModalProps){
+    const t = useTranslations();
 
     const handleOpen = () => props.setShow(true);
     const handleClose = () => props.setShow(false);
@@ -57,8 +59,8 @@ export function MyConfirmModal(props: MyConfirmModalProps){
                 {props.message}
               </Typography>
               <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '10px', padding: '10px 20px'}}>
-                <Button color="error" variant="contained" onClick={()=> {props.onDelete();}}>Supprimer</Button>
-                <Button variant="outlined" onClick={()=> props.onCancel()}>Annuler</Button>
+                <Button color="error" variant="contained" onClick={()=> {props.onDelete();}}>{t("common.delete-btn")}</Button>
+                <Button variant="outlined" onClick={()=> props.onCancel()}>{t("common.cancel-btn")}</Button>
               </div>
 
             </Box>

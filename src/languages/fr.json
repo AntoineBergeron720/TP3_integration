@@ -7,7 +7,8 @@
     "role": "Rôle",
     "github": "Github",
     "save-btn": "Enregistrer",
-    "cancel-btn": "Annuler"
+    "cancel-btn": "Annuler",
+    "delete-btn": "supprimer"
   },
   "home": {
     "page-title": "TP3-Intégration de l'API",
@@ -20,7 +21,15 @@
     "name": "Nom",
     "add-btn": "Ajouter une catégorie",
     "message": "Êtes-vous certain(e) de vouloir supprimer cette catégorie?",
-    "Category-Name": "Nom de la catégorie" 
+    "Category-Name": "Nom de la catégorie",
+    "edit-category": "Modifier une catégorie",
+    "found-category": "Aucune catégorie trouvée.",
+    "toast-error": "Erreur lors de la récupération des catégories",
+    "toast-add-success":"La catégorie a été ajoutée avec succès !",
+    "toast-edit-success": "La catégorie à été modifiée avec succès!",
+    "msg-error": "Il y a une erreur.",
+    "label-name":"Nom de la catégorie"
+
 
   },
   "products": {
