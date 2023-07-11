@@ -52,6 +52,26 @@ export async function postData(url: string, data: any) {
   return res.json();
 }
 
+export async function putData(url: string, data: any) {
+    const res = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+   
+    // Recommendation: handle errors
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data');
+    }
+   
+  return res.json();
+}
+
 export async function getCategories(){
     return getData(url_base + "/categories")
     .then((data) => data)
@@ -97,6 +117,23 @@ export async function getProducts(){
 export async function getProductById(id: string){
     return getData(url_base + "/products/"+ id)
     .then((data) => data)
+    .catch((error) => {
+        throw error;
+    });
+}
+
+export async function createProduct(data: any){
+    postData(url_base + "/products/", data)
+      .then((result) => result)
+      .catch((error) => {
+        throw error;
+      });
+
+}
+
+export async function updateProduct(id: string, data: any){
+    putData(url_base + "/products/" + id, data)
+    .then((result) => result)
     .catch((error) => {
         throw error;
     });

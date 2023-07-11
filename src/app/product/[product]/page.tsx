@@ -41,7 +41,7 @@ export default function AddProduct() {
       <Box>
         {
           product &&
-          <MyFormUpdateProduct titre={product.title} description={product.description} prix={product.price} category={product.categoryId} />
+          <MyFormUpdateProduct id={product._id} titre={product.title} description={product.description} prix={product.price} category={product.categoryId} />
         }
           </Box>
     </Container>
