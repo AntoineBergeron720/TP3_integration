@@ -20,6 +20,7 @@ import { Section } from "../section/section";
 import toast from "react-hot-toast";
 import { MyConfirmModal } from "@/components/molecules/myConfirmModal/myConfirmModal"
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 
 interface MyCategoryTableProps {
   loading?: boolean;
@@ -29,7 +30,9 @@ interface MyCategoryTableProps {
 }
 
 export function MyCategoryTable(props: MyCategoryTableProps) {
-  const columns = [{ field: "name", headerName: "Nom" }];
+  const t = useTranslations("categories");
+
+  const columns = [{ field: "name", headerName: t("name") }];
 
   const router = useRouter();
 
@@ -92,7 +95,7 @@ export function MyCategoryTable(props: MyCategoryTableProps) {
                       fontSize: "1em",
                     }}
                   >
-                    Ajouter une catégorie
+                    {t("add-btn")}
                     <AddBoxIcon
                       sx={{
                         borderRadius: "5px",
