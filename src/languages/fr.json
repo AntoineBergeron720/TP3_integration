@@ -28,8 +28,9 @@
     "toast-add-success":"La catégorie a été ajoutée avec succès !",
     "toast-edit-success": "La catégorie à été modifiée avec succès!",
     "msg-error": "Il y a une erreur.",
-    "label-name":"Nom de la catégorie"
-
+    "label-name":"Nom de la catégorie",
+    "warning": "Attention !",
+    "warning-message": "Êtes-vous certain(e) de vouloir supprimer cette catégorie?"
 
   },
   "products": {
