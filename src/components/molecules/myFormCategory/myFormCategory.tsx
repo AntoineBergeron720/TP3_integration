@@ -182,6 +182,7 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               variant="outlined"
               fullWidth
               {...register("name")}
+              defaultValue={props.name}
               error={!!errors.name}
               helperText={errors.name?.message}
               required
