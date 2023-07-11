@@ -358,11 +358,11 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                 }}
             >
                
-               <Button disabled={!title || !description || !price || !category} onClick={formSubmit} variant="contained" sx={{ border: "2px solid #007FFF", width: '100%' }} type="submit">
+               <Button disabled={!title || !description || !price || !category} onClick={formSubmit} variant="contained" sx={{ border: "2px solid #007FFF", width: '50%' }} type="submit">
                     Enregistrer
                 </Button>
                 <a href={"/product/"+props.id}>
-                    <Button variant="outlined" sx={{ border: "2px solid #007FFF", width: '100%' }} >
+                    <Button variant="outlined" sx={{ border: "2px solid #007FFF", width: '50%' }} >
                         Annuler
                     </Button>
                 </a>
