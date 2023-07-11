@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
-import MyFormCategory from "@/components/molecules/myFormCategory/myFormCategory";
+import {MyFormEditCategory} from "@/components/molecules/myFormCategory/myFormCategory";
 import { Box, Container } from "@mui/material";
 import { Categories } from "@/types/modules";
 import { getCategoryById } from "@/utils/api";
@@ -24,7 +24,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
   }, [categoryData]);
 
   function fetchCategory() {
-    getCategoryById(params.category) // TODO : useParams to get category id
+    getCategoryById(params.category)
     .then((data) => {
       console.log(data);
       setCategoryData(data.category);
@@ -51,7 +51,7 @@ export default function EditCategory({params}: EditCategoryPageProps) {
         <Box>
           {categoryData ? (
             <Box>
-              <MyFormCategory name={categoryData.name} categoryId={categoryData._id} />
+              <MyFormEditCategory categoryId={params.category} />
             </Box>
           ) : (
             <Typography> No category found.</Typography>

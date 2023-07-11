@@ -1,6 +1,4 @@
-import { Grid, TextField, FormControl, InputLabel, MenuItem } from "@mui/material";
-import MyButtonCancel from "../../atoms/button/my-button-cancel";
-import MyButtonSave from "../../atoms/button/my-button-save";
+import { Grid, TextField, FormControl, InputLabel, MenuItem, Button } from "@mui/material";
 import { useState, useEffect } from 'react';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { getCategories } from '@/utils/api';
@@ -115,8 +113,8 @@ export function MyFormCreateProduct() {
                     gap: 2,
                 }}
             >
-                <MyButtonCancel />
-                <MyButtonSave />
+                <Button />
+                <Button />
             </Grid>
         </Grid>
     );
@@ -244,8 +242,8 @@ export function MyFormUpdateProduct(props: MyFormUpdateProductProps) {
                     gap: 2,
                 }}
             >
-                <MyButtonCancel />
-                <MyButtonSave />
+                <Button />
+                <Button />
             </Grid>
         </Grid>
     );

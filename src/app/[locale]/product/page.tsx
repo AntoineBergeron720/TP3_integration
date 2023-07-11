@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import MyPageTitle from "@/components/molecules/title/my-page-title";
 import toast from "react-hot-toast";
 
+
 export default function ProductPage() {
   const [products, setProducts] = useState<Products[]>([]);
   const [categories, setCategories] = useState<Categories[]>([]);
