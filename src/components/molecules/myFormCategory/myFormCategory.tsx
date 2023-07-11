@@ -8,14 +8,11 @@ import { Categories } from "@/types/modules";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
 
-
 const schema = yup
   .object({
     name: yup.string().max(50).required(),
   })
   .required();
- 
-  
 
 interface MyFormCategoryProps {
   name: string;
@@ -167,10 +164,6 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
     setMessage("");
   }
 
-  function handleCancel() {
-    reset();
-  }
-
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -198,19 +191,19 @@ export function MyFormEditCategory(props: EditCategoryPageProps) {
               gap: 2,
             }}
           >
-            <Button
-              type="button"
-              variant="outlined"
-              sx={{ border: "2px solid #007FFF" }}
-              disabled={!isValid}
-              onClick={handleCancel}
-            >
-              {t("common.cancel-btn")}
-            </Button>
+            <a href={"/category/" + props.categoryId}>
+              <Button
+                type="button"
+                variant="outlined"
+                sx={{ border: "2px solid #007FFF" }}
+                disabled={!isValid}
+              >
+                {t("common.cancel-btn")}
+              </Button>
+            </a>
 
             <Button
               variant="contained"
-              //onClick={() =>
               sx={{ border: "2px solid #007FFF" }}
               type="submit"
               disabled={!isValid || watch("name") === initialName}
